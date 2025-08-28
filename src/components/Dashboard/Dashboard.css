@@ -1,0 +1,196 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #faf9fd;
+  color: #111;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  font-weight: 500;
+  color: #444;
+}
+
+.nav-links li {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-links li:hover {
+  color: #6a0dad;
+}
+
+.btn-primary {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 12px;
+ font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #6d28d9;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 6rem 2rem 4rem 2rem;
+  background: linear-gradient(135deg, #444, #777);
+  color: #fff;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: 0 auto 2rem auto;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Big Hero Button (below text) */
+.btn-big {
+  padding: 16px 36px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  background: #7c3aed;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin: 20px auto 50px auto;
+  display: inline-block;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-big:hover {
+  background: #6d28d9;
+  transform: scale(1.05);
+}
+
+/* Problem & Solution */
+.problem-solution {
+  padding: 4rem 2rem;
+  background: #fff;
+  display: grid;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.problem-solution h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;
+}
+
+.problem-solution p {
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Features */
+.features {
+  padding: 5rem 2rem;
+  text-align: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.features h2 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+
+.features p {
+  color: #555;
+  max-width: 700px;
+  margin: 0 auto 2.5rem auto;
+  font-size: 1rem;
+}
+
+.feature-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.feature-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: #1a1a1a;
+}
+
+.feature-card p {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: #fafafa;
+  border-top: 1px solid #e5e5e5;
+  font-size: 0.9rem;
+  color: #666;
+}
