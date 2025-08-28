@@ -145,10 +145,10 @@
   color: #fff;              
   transform: scale(1.1);    
 }
-.signin-header {
+/* .signin-header {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 1.5rem;
-  justify-content: flex-start; /* Align to left */
-}
+  justify-content: flex-start; Align to left }*/
+ 
