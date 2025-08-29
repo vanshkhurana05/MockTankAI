@@ -2,34 +2,59 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaArrowLeft } from "react-icons/fa";
 import "./SignIn.css"; 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, provider } from "../../firebase/firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
+  // ✅ Email & Password Sign-In
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Sign in with:", email, password);
+    setError("");
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Signed in successfully:", user);
+        navigate("/simulation"); // ✅ Redirect after login
+      })
+      .catch((err) => {
+        console.error("Error during sign-in:", err);
+        setError(err.message);
+      });
   };
 
+  // ✅ Google Sign-In
   const handleGoogleLogin = () => {
-    console.log("Google Login Clicked");
-    // integrate Google login here
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log("Google Sign-In successful. User:", user);
+        navigate("/simulation"); // ✅ Redirect after login
+      })
+      .catch((error) => {
+        console.error("Error during Google Sign-In:", error);
+        setError(error.message);
+      });
   };
 
   return (
     <div className="signin-container">
       <div className="signin-box">
         <div className="sign-in-header">
-        <Link to="/">
-        <button className="back-btn">
-        <FaArrowLeft size={20} /> 
-    </button>
-        </Link>
-        <h2 className="signin-title">Sign In</h2>
+          <Link to="/">
+            <button className="back-btn">
+              <FaArrowLeft size={20} /> 
+            </button>
+          </Link>
+          <h2 className="signin-title">Sign In</h2>
         </div>
-            
+
         <form onSubmit={handleSubmit} className="signin-form">
           <input
             type="email"
@@ -37,6 +62,7 @@ export default function SignIn() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="signin-input"
+            required
           />
           <input
             type="password"
@@ -44,11 +70,15 @@ export default function SignIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="signin-input"
+            required
           />
           <button type="submit" className="signin-btn">
             Sign In
           </button>
         </form>
+
+        {/* ✅ Show errors if login fails */}
+        {error && <p className="error-message">{error}</p>}
 
         <div className="signin-divider">
           <div className="line"></div>
@@ -70,3 +100,4 @@ export default function SignIn() {
     </div>
   );
 }
+

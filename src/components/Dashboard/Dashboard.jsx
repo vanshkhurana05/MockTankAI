@@ -1,22 +1,12 @@
 import React from 'react'
 import './Dashboard.css'
 import { Link } from 'react-router-dom'
+import Navbar from '../Navbar/Navbar';
 function Dashboard() {
   return (
     <div>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo">MockTank AI</div>
-        <ul className="nav-links">
-          <li>Product</li>
-          <li>Pricing</li>
-          <li>Resources</li>
-        </ul>
-        <Link to="/signin" >
-        <button className="btn-primary">Get Started</button>
-        </Link>
-      </nav>
 
+      <Navbar/>
       {/* Hero Section */}
       <section className="hero">
         <h1>AI-Powered Pitch Coaching</h1>

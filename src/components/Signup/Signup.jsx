@@ -1,54 +1,73 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaArrowLeft } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, provider } from "../../firebase/firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Sign up with:", name, email, password);
+    setError("");
 
-    // ✅ After successful signup redirect
-    navigate("/dashboard"); // 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match!");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("User registered successfully:", user);
+        navigate("/simulation"); // ✅ Redirect after sign up
+      })
+      .catch((err) => {
+        console.error("Error during Sign Up:", err);
+        setError(err.message);
+      });
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Google Signup Clicked");
-    // integrate Google login here
+  // ✅ Handle Google Sign Up
+  const handleGoogleSignup = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log("Google Sign-Up successful. User:", user);
+        navigate("/simulation"); // ✅ Redirect after sign up
+      })
+      .catch((error) => {
+        console.error("Error during Google Sign-Up:", error);
+        setError(error.message);
+      });
   };
 
   return (
     <div className="signup-container">
       <div className="signup-box">
-        <div className="signup-header">
-            <Link to="/">
-                    <button className="back-btn">
-                    <FaArrowLeft size={20} /> 
-                </button>
-            </Link>
-            <h2 className="signup-title">Sign Up</h2>
+        <div className="sign-up-header">
+          <Link to="/">
+            <button className="back-btn">
+              <FaArrowLeft size={20} /> 
+            </button>
+          </Link>
+          <h2 className="signup-title">Sign Up</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="signup-form">
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="signup-input"
-          />
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="signup-input"
+            required
           />
           <input
             type="password"
@@ -56,23 +75,35 @@ export default function SignUp() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="signup-input"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="signup-input"
+            required
           />
           <button type="submit" className="signup-btn">
             Sign Up
           </button>
         </form>
 
-        <div className="divider">
+        {/* ✅ Show error if something fails */}
+        {error && <p className="error-message">{error}</p>}
+
+        <div className="signup-divider">
           <div className="line"></div>
           <span>OR</span>
           <div className="line"></div>
         </div>
 
-        <button onClick={handleGoogleLogin} className="google-btn">
+        <button onClick={handleGoogleSignup} className="google-btn">
           <FcGoogle className="google-icon" /> Sign up with Google
         </button>
 
-        <p className="signin-text">
+        <p className="signup-footer">
           Already have an account?{" "}
           <Link to="/signin" className="signin-link">
             Sign In

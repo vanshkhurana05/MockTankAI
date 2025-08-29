@@ -1,0 +1,117 @@
+.simulation-page {
+  background-color: #004225;
+  min-height: 100vh;
+  color: white;
+  font-size: 18px;
+}
+
+.simulation-container {
+  max-width: 1400px;
+  margin: 3rem auto;
+  padding: 2rem;
+}
+
+.simulation-content {
+  display: flex;
+  gap: 3rem;
+}
+
+.left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-placeholder {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.image-placeholder img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.controls {
+  margin-top: 1.5rem;
+}
+
+.start-button {
+  background-color: #1a5d44;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.start-button:hover {
+  background-color: #248f68;
+}
+
+.start-button.recording {
+  background-color: #b32424;
+}
+
+.right-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.speech-preview {
+  background-color: #003b2d;
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+.speech-preview h3 {
+  margin-bottom: 1.2rem;
+  font-size: 20px;
+}
+
+.speech-text {
+  width: 100%;
+  min-height: 150px;
+  background: #00291a;
+  color: white;
+  padding: 1rem;
+  border-radius: 14px;
+  font-size: 17px;
+  border: none;
+  resize: vertical;  /* allow resizing up/down */
+  outline: none;
+}
+
+.speech-text::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+
+.camera-section h3 {
+  margin-bottom: 0.8rem;
+  font-size: 20px;
+}
+
+.analysis-button {
+  background-color: #1a5d44;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 20px;
+}
+
+.analysis-button:hover {
+  background-color: #248f68;
+}
