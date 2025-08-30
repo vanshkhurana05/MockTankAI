@@ -14,17 +14,17 @@
   padding: 4rem 2rem;
 }
 
-.dashboard-header h1 {
+.dashboard-header  {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);
+background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);  
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .dashboard-header p {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 300;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .cta-button {
-  background: #af4261;
+  background-color: #af4261;
   color: #fff;
   border: none;
   padding: 1rem 2.5rem;
@@ -98,6 +98,19 @@
 .dashboard-footer {
   text-align: center;
   padding: 2rem;
-  background-color: #161625;
+  background-color: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: auto;
+}
+
+.dashboard-texttype {
+  
+  font-weight: 700;
+  background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);  
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

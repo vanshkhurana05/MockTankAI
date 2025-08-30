@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import '../../ui_components/bg/bg.css';
 import GridDistortion from '../../ui_components/bg/bg';
-import '../../ui_components/bg/download.png     '
-
+import bgimage from '../../ui_components/bg/download.png'
+import '../../ui_components/heading/heading.css';
+import '../../ui_components/heading/heading.jsx';
+import TextType from '../../ui_components/heading/heading.jsx';
 const Dashboard = () => {
   return (
     <div className="dashboard-container" style={{ position: 'relative', overflow: 'hidden' }}>
@@ -21,7 +23,7 @@ const Dashboard = () => {
         pointerEvents: 'none'
       }}>
         <GridDistortion
-          imageSrc="../../ui_components/bg/download.png"
+          imageSrc={bgimage}
           grid={10}
           mouse={0.1}
           strength={0.15}
@@ -29,12 +31,29 @@ const Dashboard = () => {
           className="custom-class"
         />
       </div>
+      import TextType from './TextType';
 
+      
       {/* Foreground content */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         <Navbar />
+        
         <header className="dashboard-header">
-          <h1>Welcome to MockTank AI</h1>
+          
+          <TextType
+            className="dashboard-texttype"
+            text={[
+              "Welcome to MockTank AI",
+              "for your websites",
+              "Happy coding!"
+            ]}
+            typingSpeed={60}
+            pauseDuration={2000}
+            showCursor={true}
+            cursorCharacter="|"
+            textColors={["#f3ec78"]}
+            deletingSpeed={60}
+          />
           <p>Your personal AI-powered pitch coach</p>
         </header>
         <main className="dashboard-main">
