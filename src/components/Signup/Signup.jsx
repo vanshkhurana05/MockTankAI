@@ -91,7 +91,7 @@ export default function SignUp() {
         </form>
 
         {/* ✅ Show error if something fails */}
-        {error && <p className="error-message">{error}</p>}
+        {/* {error && <p className="error-message">{error}</p>} */}
 
         <div className="signup-divider">
           <div className="line"></div>
