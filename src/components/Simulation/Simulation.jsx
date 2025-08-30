@@ -6,6 +6,7 @@ import './Simulation.css';
 const Simulation = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [speechText, setSpeechText] = useState('');
+  const [interimText, setInterimText] = useState('');
   const recognitionRef = useRef(null);
 
   useEffect(() => {
@@ -20,22 +21,23 @@ const Simulation = () => {
       recognition.lang = 'en-US';
 
       recognition.onresult = (event) => {
-  let interimTranscript = "";
-  let finalTranscript = speechText; // keep existing text
+        let newInterim = '';
 
-  for (let i = event.resultIndex; i < event.results.length; i++) {
-    const transcript = event.results[i][0].transcript;
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
 
-    if (event.results[i].isFinal) {
-      // Append final confirmed speech
-      finalTranscript += transcript + " ";
-    } else {
-      // Show interim speech (temporary, live)
-      interimTranscript += transcript;
-    }
-  }
-  setSpeechText(finalTranscript + interimTranscript);
-};
+          if (event.results[i].isFinal) {
+            // Add confirmed text permanently
+            setSpeechText((prev) => prev + transcript + ' ');
+          } else {
+            // Keep live temporary words
+            newInterim += transcript;
+          }
+        }
+
+        // Show interim separately (does not overwrite final)
+        setInterimText(newInterim);
+      };
 
       recognition.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
@@ -58,7 +60,8 @@ const Simulation = () => {
     if (recognitionRef.current) {
       recognitionRef.current.stop();
       setIsRecording(false);
-      setSpeechText(''); // Clear text after stopping
+      setSpeechText('');   // Clear text ONLY when stopped
+      setInterimText('');
     }
   };
 
@@ -89,9 +92,11 @@ const Simulation = () => {
               <textarea
                 className="speech-text"
                 placeholder="Your speech will appear here..."
-                value={speechText}
-                onChange={(e) => setSpeechText(e.target.value)}
+                value={speechText + interimText}
+                readOnly
               />
+              {/* Interim text preview */}
+              {/* <p style={{ color: 'gray', fontStyle: 'italic' }}>{interimText}</p> */}
             </div>
 
             <div className="camera-section">
