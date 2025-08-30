@@ -1,10 +1,8 @@
-/* Bar */
 .navbar {
-  background-color: #003b2d;
+  background-color: transparent;
   padding: 1.2rem 2.5rem;
 }
 
-/* Container: Flex layout for left / center / right */
 .navbar-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -15,20 +13,14 @@
   position: relative;
 }
 
-/* Left */
-.navbar-logo {
-  flex: 0 0 auto; /* keeps logo fixed to left */
-}
-
 .navbar-logo h2 {
-  color: #ffffff;
+  color: #e0e0e0;
   font-size: 28px;
   font-weight: 700;
   letter-spacing: 0.3px;
   margin: 0;
 }
 
-/* Center */
 .navbar-menu {
   list-style: none;
   display: flex;
@@ -37,46 +29,41 @@
   gap: 2.2rem;
   padding: 0;
   margin: 0;
-  flex: 1; /* lets menu stay centered */
+  flex: 1;
 }
 
 .navbar-item { display: flex; align-items: center; }
 
 .navbar-link {
-  color: #ffffff;
+  color: #e0e0e0;
   text-decoration: none;
   font-size: 18px;
   transition: color .25s ease;
 }
 
-.navbar-link:hover { color: #48d597; }
+.navbar-link:hover { color: #f3ec78; }
 
-/* Right */
 .navbar-cta {
-  flex: 0 0 auto; /* fixed to right */
+  flex: 0 0 auto;
 }
 
 .navbar-button {
-  background-color: #1a5d44;
-  color: #ffffff;
+  background-color: #af4261;
+  color: #fff;
   border: none;
   padding: 0.9rem 1.6rem;
-  border-radius: 12px;
+  border-radius: 50px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
   transition: background-color .25s ease, transform .1s ease;
 }
 
-.navbar-button:hover { background-color: #248f68; }
+.navbar-button:hover { background-color: #c45a7a; }
 .navbar-button:active { transform: scale(0.98); }
 
-/* Responsive touch-ups */
 @media (max-width: 900px) {
   .navbar-menu { gap: 1.2rem; }
   .navbar-link { font-size: 16px; }
   .navbar-logo h2 { font-size: 24px; }
 }
-
-
-

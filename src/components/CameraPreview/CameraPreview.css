@@ -1,10 +1,12 @@
 .camera-preview {
-  background-color: #003b2d;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .video-container {
@@ -12,7 +14,7 @@
   height: 240px;
   border-radius: 16px;
   overflow: hidden;
-  background: #111;
+  background: #1a1a2e;
   margin-bottom: 1.5rem;
 }
 
@@ -28,7 +30,7 @@
 }
 
 .control-btn {
-  background-color: #1a5d44;
+  background-color: #af4261;
   color: white;
   border: none;
   padding: 0.8rem 1.6rem;
@@ -39,7 +41,7 @@
 }
 
 .control-btn:hover {
-  background-color: #248f68;
+  background-color: #c45a7a;
 }
 
 .control-btn.muted {
