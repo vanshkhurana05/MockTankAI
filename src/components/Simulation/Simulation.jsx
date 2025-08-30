@@ -95,8 +95,6 @@ const Simulation = () => {
                 value={speechText + interimText}
                 readOnly
               />
-              {/* Interim text preview */}
-              {/* <p style={{ color: 'gray', fontStyle: 'italic' }}>{interimText}</p> */}
             </div>
 
             <div className="camera-section">

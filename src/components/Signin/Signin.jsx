@@ -78,7 +78,7 @@ export default function SignIn() {
         </form>
 
         {/* ✅ Show errors if login fails */}
-        {error && <p className="error-message">{error}</p>}
+        {/* {error && <p className="error-message">{error}</p>} */}
 
         <div className="signin-divider">
           <div className="line"></div>
