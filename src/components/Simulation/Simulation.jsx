@@ -21,34 +21,71 @@ const Simulation = () => {
   const [investorResponse, setInvestorResponse] = useState("");
   const [displayedResponse, setDisplayedResponse] = useState("");
   const [isInvestorSpeaking, setIsInvestorSpeaking] = useState(false);
+  const [activeSpeaker, setActiveSpeaker] = useState(null);
+  const [availableVoices, setAvailableVoices] = useState([]);
 
   const recognitionRef = useRef(null);
 
-  // Video Refs
-  const videoRef1 = useRef(null);
-  const videoRefMain = useRef(null);
-  const videoRef3 = useRef(null);
+  const videoRefShreya = useRef(null);
+  const videoRefAnanya = useRef(null);
+  const videoRefHenry = useRef(null);
 
-  // Play/pause logic: only pause when loading/fetching
+  const investorVideoRefs = {
+    "Shreya Malhotra": videoRefShreya,
+    "Ananya Mehra": videoRefAnanya,
+    "Henry Collins": videoRefHenry,
+  };
+
+  // Get available voices
   useEffect(() => {
-    const videoMain = videoRefMain.current;
-    const video1 = videoRef1.current;
-    const video3 = videoRef3.current;
+    const loadVoices = () => {
+      const voices = window.speechSynthesis.getVoices();
+      setAvailableVoices(voices);
+    };
+    
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices();
 
-    if (!videoMain || !video1 || !video3) return;
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null;
+    };
+  }, []);
 
-    if (isLoading || !investorResponse) {
-      videoMain.pause();
-      video1.pause();
-      video3.pause();
-    } else {
-      videoMain.play();
-      video1.pause();
-      video3.pause();
+  // Welcome message on page load
+  useEffect(() => {
+    const initialMessage = "Hello. When you're ready to present your pitch, press the 'Start Pitch' button below.";
+    setInvestorResponse(initialMessage);
+    
+    const speakTimeout = setTimeout(() => {
+        setActiveSpeaker("Ananya Mehra");
+        speakText(initialMessage, "Ananya Mehra");
+    }, 500);
+
+    return () => clearTimeout(speakTimeout);
+  }, [availableVoices]);
+
+  // Pause videos when user is speaking or loading
+  useEffect(() => {
+    if (isRecording || isLoading) {
+      Object.values(investorVideoRefs).forEach(ref => ref.current && ref.current.pause());
+      return;
     }
-  }, [isLoading, investorResponse]);
+    
+    if (activeSpeaker && isInvestorSpeaking) {
+      for (const [name, ref] of Object.entries(investorVideoRefs)) {
+        if (ref.current) {
+          if (name === activeSpeaker) {
+            ref.current.play().catch(error => console.error("Video play failed:", error));
+          } else {
+            ref.current.pause();
+          }
+        }
+      }
+    } else {
+      Object.values(investorVideoRefs).forEach(ref => ref.current && ref.current.pause());
+    }
+  }, [isLoading, activeSpeaker, isInvestorSpeaking, isRecording]);
 
-  // === API Call ===
   const fetchAiResponse = async (text) => {
     try {
       const response = await fetch(
@@ -59,24 +96,25 @@ const Simulation = () => {
           body: JSON.stringify({ approvedText: text }),
         }
       );
-      return await response.json();
+      const data = await response.json();
+      console.log("AI Response:", data);
+      return data;
     } catch (err) {
       console.error("Error calling AI API:", err);
       return { error: "Failed to get AI response" };
     }
   };
 
-  // Speech Recognition setup
   useEffect(() => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) return;
-
+    
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = "en-US";
-
+    
     recognition.onresult = async (event) => {
       let finalTranscript = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -84,33 +122,49 @@ const Simulation = () => {
           finalTranscript += event.results[i][0].transcript + " ";
         }
       }
+      
       if (finalTranscript.trim()) {
         setUserSpeech(finalTranscript.trim());
         setIsLoading(true);
         setDisplayedResponse("");
         setInvestorResponse("");
-
+        setActiveSpeaker(null);
+        
+        // Pause all investor videos while user is speaking
+        Object.values(investorVideoRefs).forEach(ref => ref.current && ref.current.pause());
+        
         const aiResponse = await fetchAiResponse(finalTranscript.trim());
         setIsLoading(false);
+        
         if (aiResponse && aiResponse[1]?.[1]?.content) {
-          const responseText = aiResponse[1][1].content;
-          setInvestorResponse(responseText);
-          speakText(responseText);
+          const fullResponseText = aiResponse[1][1].content;
+          const parts = fullResponseText.split(/:(.*)/s);
+          
+          if (parts.length > 1) {
+            const speakerName = parts[0].trim();
+            const messageText = parts[1].trim();
+            setActiveSpeaker(speakerName);
+            setInvestorResponse(messageText);
+            speakText(messageText, speakerName);
+          } else {
+            setActiveSpeaker("Ananya Mehra");
+            setInvestorResponse(fullResponseText);
+            speakText(fullResponseText, "Ananya Mehra");
+          }
         }
       }
     };
-
+    
     recognitionRef.current = recognition;
     return () => recognition.stop();
-  }, []);
+  }, [availableVoices]);
 
-  // Typing animation for investor response
   useEffect(() => {
     if (investorResponse) {
       let i = 0;
       const interval = setInterval(() => {
-        if (i < investorResponse.length) {
-          setDisplayedResponse((prev) => prev + investorResponse.charAt(i));
+        if (i <= investorResponse.length) {
+          setDisplayedResponse(investorResponse.substring(0, i));
           i++;
         } else {
           clearInterval(interval);
@@ -137,20 +191,44 @@ const Simulation = () => {
     }
   };
 
-  // === Speak only after response is ready ===
-  const speakText = (text) => {
+  // Get appropriate voice for each investor
+  const getVoiceForInvestor = (investorName) => {
+    // Filter for female voices
+    const femaleVoices = availableVoices.filter(
+      voice => voice.lang.startsWith('en-') && 
+              (voice.name.includes('Female') || voice.gender === 'female')
+    );
+    
+    if (femaleVoices.length === 0) return null;
+    
+    // Assign different voices to different investors
+    if (investorName === "Shreya Malhotra") {
+      return femaleVoices[0 % femaleVoices.length];
+    } else if (investorName === "Ananya Mehra") {
+      return femaleVoices[1 % femaleVoices.length];
+    } else {
+      // For Henry Collins, use a male voice if available
+      const maleVoices = availableVoices.filter(
+        voice => voice.lang.startsWith('en-') && 
+                (voice.name.includes('Male') || voice.gender === 'male')
+      );
+      return maleVoices.length > 0 ? maleVoices[0] : femaleVoices[0];
+    }
+  };
+
+  const speakText = (text, speakerName) => {
     if (!text || !window.speechSynthesis) return;
 
     const utterance = new SpeechSynthesisUtterance(text);
+    const voice = getVoiceForInvestor(speakerName);
+    
+    if (voice) {
+      utterance.voice = voice;
+    }
+    
     utterance.lang = "en-US";
-
-    utterance.onstart = () => {
-      setIsInvestorSpeaking(true);
-    };
-
-    utterance.onend = () => {
-      setIsInvestorSpeaking(false);
-    };
+    utterance.onstart = () => setIsInvestorSpeaking(true);
+    utterance.onend = () => setIsInvestorSpeaking(false);
 
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
@@ -162,30 +240,31 @@ const Simulation = () => {
       <div className="exec-layout">
         {/* Investors */}
         <div className="investor-gallery">
-          <div className={`investor-card ${isInvestorSpeaking ? "speaking" : ""}`}>
+          <div className={`investor-card ${activeSpeaker === 'Shreya Malhotra' && isInvestorSpeaking ? "speaking" : ""}`}>
             <div className="investor-video-placeholder">
-              <video ref={videoRef1} src={shreya} muted playsInline loop></video>
+              <video ref={videoRefShreya} src={shreya} muted playsInline loop></video>
             </div>
-            <p className="investor-name">Sarah Chen</p>
+            <p className="investor-name">Shreya Malhotra</p>
+          </div>
+          
+          <div className={`investor-card main ${activeSpeaker === 'Ananya Mehra' && isInvestorSpeaking ? "speaking" : ""}`}>
+            <div className="investor-video-placeholder">
+              <video ref={videoRefAnanya} src={ananya} muted loop playsInline></video>
+            </div>
+            <p className="investor-name">Ananya Mehra</p>
           </div>
 
-          <div className={`investor-card main ${isInvestorSpeaking ? "speaking" : ""}`}>
-            <div className="investor-video-placeholder">
-              <video ref={videoRefMain} src={ananya} muted loop playsInline></video>
-            </div>
-            <p className="investor-name">David Lee</p>
-          </div>
-
-          <div className="investor-card">
+          <div className={`investor-card ${activeSpeaker === 'Henry Collins' && isInvestorSpeaking ? "speaking" : ""}`}>
             <div className="investor-video-placeholder">
               <video
-                ref={videoRef3}
+                ref={videoRefHenry}
                 src="https://assets.mixkit.co/videos/preview/mixkit-businesswoman-in-a-modern-office-4333-large.mp4"
                 muted
                 playsInline
+                loop
               ></video>
             </div>
-            <p className="investor-name">Michael Rodriguez</p>
+            <p className="investor-name">Henry Collins</p>
           </div>
         </div>
 
@@ -205,8 +284,8 @@ const Simulation = () => {
               </div>
 
               <div className="log-bubble investor">
-                <div className="bubble-header">
-                  <FaBuilding /> Investor
+                <div className="bubble-header" >
+                  <FaBuilding /> {activeSpeaker || "Investor"}
                 </div>
                 <div className="bubble-text">
                   {isLoading ? (
@@ -214,7 +293,7 @@ const Simulation = () => {
                   ) : (
                     <p>
                       {displayedResponse}
-                      <span className="typing-cursor"></span>
+                      {isInvestorSpeaking && <span className="typing-cursor"></span>}
                     </p>
                   )}
                 </div>
@@ -249,4 +328,3 @@ const Simulation = () => {
 };
 
 export default Simulation;
-

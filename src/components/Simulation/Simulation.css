@@ -130,6 +130,7 @@
 .bubble-text {
   color: var(--exec-text-secondary);
   line-height: 1.6;
+  margin-left: 10px;
 }
 .log-bubble.user {
   background-color: var(--exec-user-bubble);
