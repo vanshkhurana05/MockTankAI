@@ -1,52 +1,82 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Navbar from '../Navbar/Navbar';
-import CameraPreview from '../CameraPreview/CameraPreview';
-import './Simulation.css';
+import React, { useState, useEffect, useRef } from "react";
+import Navbar from "../Navbar/Navbar";
+import CameraPreview from "../CameraPreview/CameraPreview";
+import "./Simulation.css";
 
 const Simulation = () => {
   const [isRecording, setIsRecording] = useState(false);
-  const [speechText, setSpeechText] = useState('');
-  const [interimText, setInterimText] = useState('');
+  const [speechText, setSpeechText] = useState("");
+  const [investorRes, setInvestorRes] = useState("");
   const recognitionRef = useRef(null);
 
+  // Fetch AI response function
+  const fetchAiResponse = async (text) => {
+    try {
+      const response = await fetch(
+        "https://mocktankbackend-i0js.onrender.com/submit_text_to_chat",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ approvedText: text }),
+        }
+      );
+      return await response.json();
+    } catch (err) {
+      console.error("Error calling AI API:", err);
+      return { error: "Failed to get AI response" };
+    }
+  };
+
   useEffect(() => {
-    // Check if browser supports SpeechRecognition
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    if (SpeechRecognition) {
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true; // keeps listening until stopped
-      recognition.interimResults = true; // show speech while speaking
-      recognition.lang = 'en-US';
-
-      recognition.onresult = (event) => {
-        let newInterim = '';
-
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const transcript = event.results[i][0].transcript;
-
-          if (event.results[i].isFinal) {
-            // Add confirmed text permanently
-            setSpeechText((prev) => prev + transcript + ' ');
-          } else {
-            // Keep live temporary words
-            newInterim += transcript;
-          }
-        }
-
-        // Show interim separately (does not overwrite final)
-        setInterimText(newInterim);
-      };
-
-      recognition.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
-      };
-
-      recognitionRef.current = recognition;
-    } else {
-      console.warn('Speech Recognition not supported in this browser.');
+    if (!SpeechRecognition) {
+      console.warn("Speech Recognition not supported in this browser.");
+      return;
     }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = "en-US";
+
+    recognition.onresult = async (event) => {
+      let interimTranscript = "";
+      let finalTranscript = "";
+
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript + " ";
+        } else {
+          interimTranscript += transcript;
+        }
+      }
+
+      // Update speechText for UI with live text
+      setSpeechText((prev) => finalTranscript + interimTranscript);
+
+      // Only call AI when there is a new final transcript
+      if (finalTranscript.trim()) {
+        const aiResponse = await fetchAiResponse(finalTranscript.trim());
+        console.log("AI Response:", aiResponse[1][1].content);
+
+        // You can update state here to show AI response in UI
+        setInvestorRes(aiResponse[1][1].content);
+        speakText(aiResponse[1][1].content); // Speak the AI response
+      }
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+    };
+
+    recognitionRef.current = recognition;
+
+    return () => {
+      recognition.stop();
+    };
   }, []);
 
   const handleStartRecording = () => {
@@ -60,15 +90,22 @@ const Simulation = () => {
     if (recognitionRef.current) {
       recognitionRef.current.stop();
       setIsRecording(false);
-      setSpeechText('');   // Clear text ONLY when stopped
-      setInterimText('');
+      setSpeechText(""); // Clear text after stopping
     }
   };
+  // Function to speak text
+const speakText = (text) => {
+  if (!text) return;
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+  utterance.rate = 1;
+  utterance.pitch = 1;
+  window.speechSynthesis.speak(utterance);
+};
 
   return (
     <div className="simulation-page">
       <Navbar />
-
       <div className="simulation-container">
         <div className="simulation-content">
           <div className="left-column">
@@ -77,10 +114,12 @@ const Simulation = () => {
             </div>
             <div className="controls">
               <button
-                className={`start-button ${isRecording ? 'recording' : ''}`}
-                onClick={isRecording ? handleStopRecording : handleStartRecording}
+                className={`start-button ${isRecording ? "recording" : ""}`}
+                onClick={
+                  isRecording ? handleStopRecording : handleStartRecording
+                }
               >
-                {isRecording ? 'Stop Simulation' : 'Start Simulation'}
+                {isRecording ? "Stop Simulation" : "Start Simulation"}
               </button>
               <button className="analysis-button">Deep Analysis</button>
             </div>
@@ -92,11 +131,9 @@ const Simulation = () => {
               <textarea
                 className="speech-text"
                 placeholder="Your speech will appear here..."
-                value={speechText + interimText}
-                readOnly
+                value={speechText}
+                onChange={(e) => setSpeechText(e.target.value)}
               />
-              {/* Interim text preview */}
-              {/* <p style={{ color: 'gray', fontStyle: 'italic' }}>{interimText}</p> */}
             </div>
 
             <div className="camera-section">
