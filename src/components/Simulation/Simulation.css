@@ -214,6 +214,11 @@
   animation: blink 1s infinite;
   margin-left: 4px;
 }
+.investor-card.speaking {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
 @keyframes blink { 50% { opacity: 0; } }
 
 /* --- Responsive Design --- */
