@@ -60,7 +60,7 @@ const Simulation = () => {
       // Only call AI when there is a new final transcript
       if (finalTranscript.trim()) {
         const aiResponse = await fetchAiResponse(finalTranscript.trim());
-        console.log("AI Response:", aiResponse[1][1].content);
+        console.log("AI Response:", aiResponse);
 
         // You can update state here to show AI response in UI
         setInvestorRes(aiResponse[1][1].content);
