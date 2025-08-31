@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./FeedbackForm.css";
 import Navbar from "../Navbar/Navbar";
-import bgimage from "../../assets/gradient2.png"; // Use your preferred image
+import bgfeed from '../../assets/bo2.png'; // Use your preferred image
 
 export default function FeedbackForm() {
   const [formData, setFormData] = useState({
@@ -38,7 +38,7 @@ export default function FeedbackForm() {
       <div
         className="feedback-bg"
         style={{
-          backgroundImage: `url(${bgimage})`,
+          backgroundImage: `url(${bgfeed})`,
         }}
       />
       {/* Foreground Content */}

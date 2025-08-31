@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import '../../ui_components/bg/bg.css';
 import GridDistortion from '../../ui_components/bg/bg';
 import bgimage from '../../ui_components/bg/download.png'
+import bgdash from '../../assets/blackorange.png';
 import '../../ui_components/heading/heading.css';
 import '../../ui_components/heading/heading.jsx';
 import TextType from '../../ui_components/heading/heading.jsx';
@@ -23,7 +24,7 @@ const Dashboard = () => {
         pointerEvents: 'none'
       }}>
         <GridDistortion
-          imageSrc={bgimage}
+          imageSrc={bgdash}
           grid={10}
           mouse={0.1}
           strength={0.15}
@@ -44,8 +45,8 @@ const Dashboard = () => {
             className="dashboard-texttype"
             text={[
               "Welcome to MockTank AI",
-              "Pitching made easy",
-              ""
+              "Your partner in pitch excellence",
+              "Practice. Perfect. Pitch. Succeed."
             ]}
             typingSpeed={60}
             pauseDuration={2000}

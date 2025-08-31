@@ -5,6 +5,7 @@ import "./SignIn.css";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, provider } from "../../firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import bgin from "../../assets/bo3.png"; // ✅ Fixed import path
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -44,7 +45,15 @@ export default function SignIn() {
   };
 
   return (
-    <div className="signin-container">
+    <div
+      className="signin-container"
+      style={{
+        backgroundImage: `url(${bgin})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
       <div className="signin-box">
         <div className="sign-in-header">
           <Link to="/">

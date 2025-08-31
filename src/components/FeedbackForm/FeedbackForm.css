@@ -85,7 +85,7 @@
 }
 
 .feedback-btn {
-  background: linear-gradient(90deg, #af4261 60%, #f3ec78 100%);
+   background: linear-gradient(90deg, #da5705 60%, #f3ec78 100%);
   color: #fff;
   border: none;
   padding: 1rem;
@@ -99,7 +99,7 @@
 }
 
 .feedback-btn:hover {
-  background: linear-gradient(90deg, #c45a7a 60%, #f3ec78 100%);
+  background: linear-gradient(90deg, #bc1414 60%, #d57209 100%);
   transform: scale(1.04);
 }
 
