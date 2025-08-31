@@ -44,8 +44,8 @@ const Dashboard = () => {
             className="dashboard-texttype"
             text={[
               "Welcome to MockTank AI",
-              "for your websites",
-              "Happy coding!"
+              "Pitching made easy",
+              ""
             ]}
             typingSpeed={60}
             pauseDuration={2000}
