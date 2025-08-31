@@ -48,7 +48,7 @@
 }
 
 .navbar-button {
-  background-color: #af4261;
+  background-color: #bc6808;
   color: #fff;
   border: none;
   padding: 0.9rem 1.6rem;
@@ -59,7 +59,7 @@
   transition: background-color .25s ease, transform .1s ease;
 }
 
-.navbar-button:hover { background-color: #c45a7a; }
+.navbar-button:hover { background-color: #de2727; }
 .navbar-button:active { transform: scale(0.98); }
 
 @media (max-width: 900px) {

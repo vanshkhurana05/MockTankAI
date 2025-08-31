@@ -1,42 +1,81 @@
+/* Background container and overlay */
+.feedback-bg-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.feedback-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  filter: blur(2px) brightness(0.7);
+  z-index: 0;
+}
+
+.feedback-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main feedback container */
 .feedback-container {
   background: rgba(255, 255, 255, 0.1);
   padding: 2.5rem;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   max-width: 600px;
-  margin: 3rem auto;
+  margin: 4rem auto 2rem auto;
   color: #e0e0e0;
   text-align: center;
+  box-shadow: 0 8px 32px rgba(26,26,46,0.18);
 }
 
 .feedback-container h2 {
   margin-bottom: 1.5rem;
-  font-size: 24px;
-  color: #f3ec78;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .feedback-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .feedback-form input,
 .feedback-form select,
 .feedback-form textarea {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 1rem;
   border-radius: 14px;
-  color: #e0e0e0;
-  font-size: 16px;
+  color: #000000;
+  font-size: 1.1rem;
   outline: none;
+  transition: border 0.2s;
+}
+
+.feedback-form input:focus,
+.feedback-form select:focus,
+.feedback-form textarea:focus {
+  border: 1.5px solid #af4261;
 }
 
 .feedback-form input::placeholder,
 .feedback-form textarea::placeholder {
-  color: #aaa;
+  color: #000 !important;
   font-style: italic;
 }
 
@@ -46,23 +85,37 @@
 }
 
 .feedback-btn {
-  background-color: #af4261;
-  color: white;
+   background: linear-gradient(90deg, #da5705 60%, #f3ec78 100%);
+  color: #fff;
   border: none;
   padding: 1rem;
-  font-size: 18px;
+  font-size: 1.15rem;
   border-radius: 14px;
   cursor: pointer;
-  transition: 0.3s;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(175,66,97,0.08);
 }
 
 .feedback-btn:hover {
-  background-color: #c45a7a;
+  background: linear-gradient(90deg, #bc1414 60%, #d57209 100%);
+  transform: scale(1.04);
 }
 
 .thank-you {
-  font-size: 20px;
+  font-size: 1.3rem;
   margin-top: 2rem;
   color: #f3ec78;
   font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .feedback-container {
+    padding: 1.2rem;
+    border-radius: 12px;
+    margin: 2rem 1rem;
+  }
 }

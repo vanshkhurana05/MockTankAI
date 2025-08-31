@@ -1,4 +1,4 @@
-
+/* Match container style */
 .signup-container {
   display: flex;
   align-items: center;
@@ -7,6 +7,7 @@
   background-color: #1a1a2e;
 }
 
+/* Match box style and add glassmorphism + shadow */
 .signup-box {
   background: rgba(255, 255, 255, 0.1);
   padding: 2.5rem;
@@ -16,30 +17,44 @@
   width: 400px;
   text-align: center;
   color: #e0e0e0;
+  box-shadow: 0 2px 8px rgba(175,66,97,0.08);
 }
 
+/* Gradient title like sign in */
 .signup-title {
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: #f3ec78;
+  background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
 }
 
+/* Form layout */
 .signup-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
+/* Inputs match sign in */
 .signup-input {
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 1rem;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.1);
   color: #e0e0e0;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+
+.signup-input::placeholder {
+  color: #000;
+  opacity: 1;
 }
 
 .signup-input:focus {
@@ -47,26 +62,34 @@
   box-shadow: 0 0 0 3px rgba(243, 236, 120, 0.3);
 }
 
+/* Gradient button like sign in */
 .signup-btn {
-  background: #af4261;
-  color: #fff;
-  font-weight: 600;
-  padding: 1rem;
+  background: linear-gradient(90deg, #da5705 30%, #f3ec78 100%);
+  color: white;
+  font-weight: 700;
+  padding: 1rem 0;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 1.1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.35rem; /* Consistent spacing */
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(175,66,97,0.08);
 }
 
 .signup-btn:hover {
-  background: #c45a7a;
-  transform: scale(1.05);
+  background: linear-gradient(90deg, #cb2a02 30%, #ce8a03 100%);
+  color: #fff;
+  transform: scale(1.04);
 }
 
+/* Divider matches sign in */
 .divider {
   display: flex;
   align-items: center;
-  margin: 2rem 0;
+  margin: 2rem 0; /* Reduced vertical space */
   color: #e0e0e0;
 }
 
@@ -81,17 +104,24 @@
   font-size: 0.9rem;
 }
 
+/* Google button matches sign in */
 .google-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
   color: #1a1a2e;
-  padding: 1rem;
+  padding: 1rem 0;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1.1rem;
+  width: 100%;
+  border: none;
+  margin-top: 0.5rem;
+  margin-bottom: 0; /* Remove default margin-bottom */
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 8px rgba(175,66,97,0.08);
 }
 
 .google-btn:hover {
@@ -103,6 +133,7 @@
   margin-right: 0.8rem;
 }
 
+/* Footer text and link matches sign in */
 .signin-text {
   margin-top: 2rem;
   color: #e0e0e0;
@@ -116,4 +147,13 @@
 
 .signin-link:hover {
   text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .signup-box {
+    width: 97vw;
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
 }

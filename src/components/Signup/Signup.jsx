@@ -5,6 +5,7 @@ import "./SignUp.css";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, provider } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import bgin from "../../assets/bo3.png";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -49,7 +50,12 @@ export default function SignUp() {
   };
 
   return (
-    <div className="signup-container">
+    <div style={{
+            backgroundImage: `url(${bgin})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            minHeight: "100vh",
+          }} className="signup-container">
       <div className="signup-box">
         <div className="sign-up-header">
           <Link to="/">
@@ -93,7 +99,7 @@ export default function SignUp() {
         {/* ✅ Show error if something fails */}
         {/* {error && <p className="error-message">{error}</p>} */}
 
-        <div className="signup-divider">
+        <div className="signin-divider">
           <div className="line"></div>
           <span>OR</span>
           <div className="line"></div>

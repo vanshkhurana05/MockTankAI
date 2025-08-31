@@ -1,9 +1,11 @@
 .signin-container {
+
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background-color: #1a1a2e;
+  
 }
 
 .signin-box {
@@ -19,6 +21,9 @@
 
 .signin-title {
   font-size: 2.2rem;
+  background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 700;
   margin-bottom: 2rem;
   color: #f3ec78;
@@ -32,13 +37,20 @@
 
 .signin-input {
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 1rem; /* Match vertical padding with .signin-btn */
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.1);
   color: #e0e0e0;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1.1rem; /* Match font size with .signin-btn */
+  box-sizing: border-box;
+}
+
+.signin-input::placeholder {
+  color: #000;
+  opacity: 1;
 }
 
 .signin-input:focus {
@@ -47,19 +59,24 @@
 }
 
 .signin-btn {
-  background: #af4261;
-  color: #fff;
-  font-weight: 600;
-  padding: 1rem;
+  background: linear-gradient(90deg, #da5705 30%, #f3ec78 100%);
+  color: white;
+  font-weight: 700;
+  padding: 1rem 0;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 1.1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(175,66,97,0.08);
 }
 
 .signin-btn:hover {
-  background: #c45a7a;
-  transform: scale(1.05);
+    background: linear-gradient(90deg, #cb2a02 30%, #ce8a03 100%);
+  color: #fff;
+  transform: scale(1.04);
 }
 
 .signin-divider {
@@ -86,11 +103,16 @@
   justify-content: center;
   background: #fff;
   color: #1a1a2e;
-  padding: 1rem;
+  padding: 1rem 0;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1.1rem;
+  width: 100%;
+  border: none;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 8px rgba(175,66,97,0.08);
 }
 
 .google-btn:hover {
@@ -115,4 +137,10 @@
 
 .signup-link:hover {
   text-decoration: underline;
+}
+.back-btn{
+background-color: rgb(255, 115, 0);
+}
+.back-btn:hover{
+background-color:rgb(237, 61, 61);
 }
