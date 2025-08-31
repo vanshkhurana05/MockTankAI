@@ -1,121 +1,228 @@
+/* --- Executive UI: Global Styles & Variables --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-.simulation-page {
-  background-color: #1a1a2e;
-  min-height: 100vh;
-  color: #e0e0e0;
-  font-size: 18px;
+:root {
+  --exec-bg: #0B111E;
+  --exec-panel-bg: #111827;
+  --exec-border: rgba(255, 255, 255, 0.1);
+  --exec-shadow: rgba(0, 0, 0, 0.5);
+  --exec-primary-orange: #F97316;
+  --exec-primary-orange-light: #FA8334;
+  --exec-text-primary: #F1F5F9;
+  --exec-text-secondary: #94A3B8;
+  --exec-text-user: #38BDF8;
+  --exec-user-bubble: #1E293B;
+  --exec-investor-bubble: #334155;
 }
 
-.simulation-container {
-  max-width: 1400px;
-  margin: 3rem auto;
-  padding: 2rem;
-}
-
-.simulation-content {
-  display: flex;
-  gap: 3rem;
-}
-
-.left-column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.image-placeholder {
-  width: 100%;
-  border-radius: 20px;
+/* --- Main Layout & Structure --- */
+.exec-simulation-page {
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  margin-bottom: 2rem;
-}
-
-.image-placeholder img {
-  width: 100%;
-  border-radius: 20px;
-}
-
-.controls {
-  margin-top: 1.5rem;
-}
-
-.start-button {
-  background-color: #af4261;
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 18px;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.start-button:hover {
-  background-color: #c45a7a;
-}
-
-.start-button.recording {
-  background-color: #b32424;
-}
-
-.right-column {
-  flex: 2;
+  background-color: var(--exec-bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--exec-text-primary);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
-.speech-preview {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.exec-layout {
+  flex-grow: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1.5rem;
 }
 
-.speech-preview h3 {
-  margin-bottom: 1.2rem;
-  font-size: 20px;
-  color: #f3ec78;
+/* --- Investor Gallery (Top Section) --- */
+.investor-gallery {
+  display: flex;
+  gap: 1.5rem;
+  height: 35vh;
+  flex-shrink: 0;
+}
+.investor-card {
+  flex: 1;
+  background-color: var(--exec-panel-bg);
+  border: 1px solid var(--exec-border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.investor-card.main {
+  flex: 1.5;
+}
+.investor-video-placeholder {
+  flex-grow: 1;
+  background-color: #000;
+  position: relative;
+}
+.investor-video-placeholder video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.investor-name {
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background-color: rgba(0,0,0,0.2);
+  border-top: 1px solid var(--exec-border);
+  text-align: center;
+  flex-shrink: 0;
+}
+.active-speaker {
+  border-color: var(--exec-primary-orange);
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
 }
 
-.speech-text {
-  width: 100%;
-  min-height: 150px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #e0e0e0;
-  padding: 1rem;
-  border-radius: 14px;
-  font-size: 17px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  resize: vertical;
-  outline: none;
+/* --- Main Content Grid (Bottom Section) --- */
+.main-content-grid {
+  flex-grow: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+.content-panel {
+  background-color: var(--exec-panel-bg);
+  border: 1px solid var(--exec-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.panel-header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--exec-border);
+  flex-shrink: 0;
 }
 
-.speech-text::placeholder {
-  color: #aaa;
-  font-style: italic;
+/* --- Conversation Panel --- */
+.conversation-log {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-right: 0.5rem;
+}
+.log-bubble {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  max-width: 90%;
+}
+.bubble-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.bubble-text {
+  color: var(--exec-text-secondary);
+  line-height: 1.6;
+}
+.log-bubble.user {
+  background-color: var(--exec-user-bubble);
+  align-self: flex-start;
+  border-top-left-radius: 0;
+  color: var(--exec-text-user);
+}
+.log-bubble.investor {
+  background-color: var(--exec-investor-bubble);
+  align-self: flex-start;
+  border-top-left-radius: 0;
+  color: var(--exec-primary-orange);
 }
 
-.camera-section h3 {
-  margin-bottom: 0.8rem;
-  font-size: 20px;
-  color: #f3ec78;
+/* --- User Panel --- */
+.user-panel { gap: 1.5rem; }
+.camera-container {
+  flex-grow: 1;
+  background-color: #000;
+  border-radius: 10px;
+  min-height: 25vh;
+  overflow: hidden;
 }
+.controls-container { display: flex; flex-direction: column; gap: 0.75rem; }
 
-.analysis-button {
-  background-color: #af4261;
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 18px;
-  border-radius: 14px;
+/* --- MODIFIED: Enhanced Button Styles --- */
+.exec-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* Reduced gap */
+  padding: 0.6rem 1rem; /* Reduced padding */
+  font-size: 0.9rem; /* Reduced font size */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: 0.3s;
-  margin-left: 20px;
+  transition: all 0.2s ease;
+}
+.exec-button:active { transform: scale(0.98); }
+.exec-button.primary {
+  color: #fff;
+  border-color: #D95808;
+  background-image: linear-gradient(to bottom, var(--exec-primary-orange-light), var(--exec-primary-orange));
+}
+.exec-button.primary:hover {
+  background-image: linear-gradient(to bottom, #FB923C, #EA580C);
+}
+.exec-button.secondary {
+  background-color: transparent;
+  color: var(--exec-text-secondary);
+  border-color: var(--exec-border);
+}
+.exec-button.secondary:hover {
+  background-color: rgba(148, 163, 184, 0.1); /* Subtle fill on hover */
+  color: var(--exec-text-primary);
+}
+.recording {
+  background-image: none; /* Remove gradient when recording */
+  background-color: #c2410c;
+  border-color: #dd5454;
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
 }
 
-.analysis-button:hover {
-  background-color: #c45a7a;
+/* --- Shimmer & Cursor --- */
+.shimmer-container { display: flex; flex-direction: column; gap: 0.5rem; }
+.shimmer-bar {
+  width: 100%;
+  height: 1.2rem;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #3a4354 25%, #4b5569 50%, #3a4354 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+@keyframes shimmer { 100% { background-position: -200% 0; } }
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: var(--exec-primary-orange);
+  animation: blink 1s infinite;
+  margin-left: 4px;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+  .main-content-grid { grid-template-columns: 1fr; }
+  .exec-layout { overflow-y: auto; }
+}
+@media (max-width: 768px) {
+  .investor-gallery { flex-direction: column; height: auto; min-height: 400px; }
+  .investor-card.main { flex: 1; }
+  .exec-layout { padding: 0.75rem; gap: 0.75rem; }
 }
