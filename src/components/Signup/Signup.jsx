@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaArrowLeft } from "react-icons/fa";
-import "./SignUp.css";
+import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, provider } from "../../firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
