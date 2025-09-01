@@ -4,13 +4,13 @@ import { getAuth , GoogleAuthProvider } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAAjyYki5bB_9YUQZl3ccBwA5fpnDEjn7k",
-  authDomain: "mocktankai.firebaseapp.com",
-  projectId: "mocktankai",
-  storageBucket: "mocktankai.firebasestorage.app",
-  messagingSenderId: "356574520170",
-  appId: "1:356574520170:web:a9396cc2f8a951e904fb13",
-  measurementId: "G-6SXZK6T9G8"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // // Initialize Firebase
