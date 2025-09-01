@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import '../../ui_components/bg/bg.css';
 import GridDistortion from '../../ui_components/bg/bg';
-import bgdash from '../../assets/blackorange.png';
+import bgdash from '../../assets/blackorange.png'; // Use your preferred image
 import '../../ui_components/heading/heading.css';
 import '../../ui_components/heading/heading.jsx';
 import TextType from '../../ui_components/heading/heading.jsx';
