@@ -9,13 +9,25 @@ import Simulation from './components/Simulation/Simulation'
 import Navbar from './components/Navbar/Navbar'
 import CameraPreview from './components/CameraPreview/CameraPreview'
 import FeedbackForm from './components/FeedbackForm/FeedbackForm'
-
+import { useContext } from 'react'
+import startChatContext from './context/startChatContext'
+import { useEffect } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  useEffect(() => {
+    async function startChat() {
+      try {
+        const response = await fetch('https://mocktankbackend-i0js.onrender.com/start_chat') ;      
+        const data = await response.json()
+        console.log("Chat started:", data);
+      }catch (error) {
+        console.error("Error starting chat:", error);
+      }
+    }
+    startChat();
+  }, []);
   return (
-    <>
+    <startChatContext.Provider value={{startChat:true}}>
     <Router>
     <Routes>
       <Route path='/navbar' element={<Navbar/>}/>
@@ -26,7 +38,7 @@ function App() {
       <Route path='/feedback' element={<FeedbackForm/>}/>
     </Routes>
     </Router>
-    </>
+    </startChatContext.Provider>
   )
 }
 
