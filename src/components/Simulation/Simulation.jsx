@@ -5,7 +5,8 @@ import "./Simulation.css";
 import { FaMicrophone, FaStop, FaChartLine, FaUser, FaBuilding } from "react-icons/fa";
 import henry from "../../assets/henry.mp4";
 import shreya from "../../assets/shreya.mp4";
-import ananya from "../../assets/ananya.mp4";
+import ananya from "../../assets/ananya.mp4"
+import { Link } from "react-router-dom";
 
 const ShimmerLoading = () => (
   <div className="shimmer-container">
@@ -316,10 +317,12 @@ const Simulation = () => {
     {isRecording ? <FaStop /> : <FaMicrophone />}
     {isRecording ? "Stop Pitch" : "Start Pitch"}
   </button>
+  <Link to="/deepanalysis">
   <button className="exec-button secondary">
     <FaChartLine />
     Deep Analysis
   </button>
+  </Link>
 </div>
 <button className="endchat-btn">End Chat</button>
           </div>

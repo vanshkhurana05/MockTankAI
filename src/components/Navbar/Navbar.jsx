@@ -65,7 +65,7 @@ const Navbar = () => {
 
 <li className="navbar-item">
   <Link
-    to={user ? "/recents" : "/signin"} // change "#" to /recents route if you have one
+    to={user ? "/recents" : "/signin"} 
     className="navbar-link"
     onClick={() => setMobileMenuOpen(false)}
   >

@@ -1,0 +1,97 @@
+.recent-container {
+  background: #0b111e;
+  color: white;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.stats-container {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #111827;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  flex: 1;
+}
+
+.stat-card h2 {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+}
+
+.recent-title {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #111827;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.recent-table th,
+.recent-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #2c2f38;
+}
+
+.status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.completed {
+  background: #16a34a;
+}
+
+.in-progress {
+  background: #facc15;
+}
+
+.btn-container {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+.start {
+  background: #16a34a;
+  color: white;
+}
+
+.start:hover {
+  background: #15803d;
+}
+
+.review {
+  background: #374151;
+  color: white;
+}
+
+.review:hover {
+  background: #1f2937;
+}
