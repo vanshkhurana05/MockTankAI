@@ -31,7 +31,7 @@ const Dashboard = () => {
           className="custom-class"
         />
       </div>
-      import TextType from './TextType';
+      
 
       
       <div style={{ position: 'relative', zIndex: 1 }}>
