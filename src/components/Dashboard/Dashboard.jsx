@@ -34,7 +34,6 @@ const Dashboard = () => {
       import TextType from './TextType';
 
       
-      {/* Foreground content */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         <Navbar />
         

@@ -1,27 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
-import { auth } from '../../firebase/firebase'; // adjust the path
+import { auth } from '../../firebase/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
-    // Listen for auth state changes
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
     return () => unsubscribe();
   }, []);
 
-  
   useEffect(() => {
     const handler = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setMenuOpen(false);
+        setProfileMenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -30,59 +29,96 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await signOut(auth);
-    setMenuOpen(false);
+    setProfileMenuOpen(false);
+    setMobileMenuOpen(false);
   };
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        
+        {/* Logo */}
         <div className="navbar-logo">
           <h2>MockTankAI</h2>
         </div>
 
-        <ul className="navbar-menu">
+        {/* Hamburger */}
+        <div className="hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        {/* Center Menu (Mobile dropdown) */}
+        <ul className={`navbar-menu ${mobileMenuOpen ? "open" : ""}`}>
           <li className="navbar-item">
-            <Link to="/" className="navbar-link">Home</Link>
+            <Link to="/" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Home</Link>
           </li>
           <li className="navbar-item">
-            <Link to="/simulation" className="navbar-link">Simulations</Link>
+            <Link to="/simulation" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Simulations</Link>
           </li>
           <li className="navbar-item">
-            <Link to="#" className="navbar-link">Recents</Link>
+            <Link to="#" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Recents</Link>
           </li>
           <li className="navbar-item">
-            <Link to="/feedback" className="navbar-link">Feedback</Link>
+            <Link to="/feedback" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Feedback</Link>
           </li>
+
+          {/* ✅ Mobile-only Get Started */}
+          {!user && (
+            <li className="navbar-item mobile-only">
+              <Link to="/signin" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>
+                <button className="navbar-button">Get Started</button>
+              </Link>
+            </li>
+          )}
+
+          {/* ✅ Mobile-only Profile */}
+          {user && (
+            <li className="navbar-item navbar-profile mobile-only" ref={menuRef}>
+              <img
+                src={user.photoURL || "/default-pfp.png"}
+                alt="Profile"
+                className="navbar-pfp"
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+              />
+              {profileMenuOpen && (
+                <div className="navbar-menu-dropdown">
+                  <p className="dropdown-item" onClick={handleLogout}>Logout</p>
+                </div>
+              )}
+            </li>
+          )}
         </ul>
 
-        {/* ✅ Conditional Rendering */}
-        {user ? (
-          <div className="navbar-profile" ref={menuRef}>
-            <img
-              src={user.photoURL || "/default-pfp.png"}
-              alt="Profile"
-              className="navbar-pfp"
-              onClick={() => setMenuOpen(!menuOpen)}
-            />
-            
-            {menuOpen && (
-              <div className="navbar-menu-dropdown">
-                <p className="dropdown-item" onClick={handleLogout}>Logout</p>
-              </div>
-            )}
-          </div>
-        ) : (
-          <Link to="/signin" className="navbar-signin-link">
-            <div className="navbar-cta">
+        {/* Desktop-only Right Section */}
+        <div className="navbar-right">
+          {!user ? (
+            <Link to="/signin" className="navbar-cta">
               <button className="navbar-button">Get Started</button>
+            </Link>
+          ) : (
+            <div className="navbar-profile" ref={menuRef}>
+              <img
+                src={user.photoURL || "/default-pfp.png"}
+                alt="Profile"
+                className="navbar-pfp"
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+              />
+              {profileMenuOpen && (
+                <div className="navbar-menu-dropdown">
+                  <p className="dropdown-item" onClick={handleLogout}>Logout</p>
+                </div>
+              )}
             </div>
-          </Link>
-        )}
+          )}
+        </div>
       </div>
     </nav>
   );
 };
 
 export default Navbar;
+
+
+
 

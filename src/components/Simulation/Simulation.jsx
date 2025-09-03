@@ -309,18 +309,19 @@ const Simulation = () => {
               <CameraPreview />
             </div>
             <div className="controls-container">
-              <button
-                className={`exec-button primary ${isRecording ? "recording" : ""}`}
-                onClick={isRecording ? handleStopRecording : handleStartRecording}
-              >
-                {isRecording ? <FaStop /> : <FaMicrophone />}
-                {isRecording ? "Stop Pitch" : "Start Pitch"}
-              </button>
-              <button className="exec-button secondary">
-                <FaChartLine />
-                Deep Analysis
-              </button>
-            </div>
+  <button
+    className={`exec-button primary ${isRecording ? "recording" : ""}`}
+    onClick={isRecording ? handleStopRecording : handleStartRecording}
+  >
+    {isRecording ? <FaStop /> : <FaMicrophone />}
+    {isRecording ? "Stop Pitch" : "Start Pitch"}
+  </button>
+  <button className="exec-button secondary">
+    <FaChartLine />
+    Deep Analysis
+  </button>
+</div>
+<button className="endchat-btn">End Chat</button>
           </div>
         </div>
       </div>

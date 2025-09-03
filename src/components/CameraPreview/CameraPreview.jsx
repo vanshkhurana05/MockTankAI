@@ -75,7 +75,7 @@ const CameraPreview = () => {
         />
       </div>
       <div className="camera-controls">
-        <button 
+        {/* <button 
           className={`control-btn ${isAudioActive ? 'active' : 'muted'}`}
           onClick={toggleAudio}
         >
@@ -86,7 +86,7 @@ const CameraPreview = () => {
           onClick={toggleVideo}
         >
           {isVideoActive ? 'Stop Video' : 'Start Video'}
-        </button>
+        </button> */}
       </div>
     </div>
   );

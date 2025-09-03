@@ -1,4 +1,4 @@
-/* --- Executive UI: Global Styles & Variables --- */
+/* --- Fonts & Variables --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
@@ -15,11 +15,11 @@
   --exec-investor-bubble: #334155;
 }
 
-/* --- Main Layout & Structure --- */
+/* --- Main Page Layout --- */
 .exec-simulation-page {
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh; /* ✅ allow scroll instead of lock */
+  overflow-x: hidden;
   background-color: var(--exec-bg);
   font-family: 'Inter', sans-serif;
   color: var(--exec-text-primary);
@@ -33,15 +33,16 @@
   flex-direction: column;
   padding: 1rem;
   gap: 1rem;
-  min-height: 0; /* Crucial for proper flexbox sizing */
+  min-height: 0;
+  overflow-y: auto; /* ✅ scrolling enabled */
 }
 
-/* --- Investor Gallery (Top Section) --- */
+/* --- Investor Gallery --- */
 .investor-gallery {
   display: flex;
   gap: 1rem;
-  height: 38vh; /* Changed from fixed 35vh to relative */
-  min-height: 180px; /* Added minimum height */
+  height: 35vh;
+  min-height: 180px;
   flex-shrink: 0;
 }
 
@@ -54,17 +55,13 @@
   flex-direction: column;
   transition: all 0.3s ease;
   overflow: hidden;
-}
-
-.investor-card.main {
-  flex: 1.5;
+  position: relative;
 }
 
 .investor-video-placeholder {
   flex: 1;
   background-color: #000;
   position: relative;
-  min-height: 0; /* Important for proper video scaling */
 }
 
 .investor-video-placeholder video {
@@ -77,26 +74,27 @@
   padding: 0.5rem;
   font-weight: 500;
   font-size: 0.85rem;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.4);
   border-top: 1px solid var(--exec-border);
   text-align: center;
-  flex-shrink: 0;
 }
 
-.active-speaker {
-  border-color: var(--exec-primary-orange);
-  box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+.investor-card.speaking {
+  border: 2px solid var(--exec-primary-orange);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
 }
 
-/* --- Main Content Grid (Bottom Section) --- */
+/* --- Main Content Grid --- */
 .main-content-grid {
   flex: 1;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 1rem;
-  min-height: 0; /* Crucial for proper grid sizing */
+  min-height: 0;
 }
 
+/* --- Panels --- */
 .content-panel {
   background-color: var(--exec-panel-bg);
   border: 1px solid var(--exec-border);
@@ -104,24 +102,20 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  min-height: 0; /* Crucial for proper panel sizing */
-  overflow: hidden; /* Prevent content overflow */
+  min-height: 0;
+  flex-shrink: 1;
+  overflow: hidden;
 }
 
 .panel-header {
   font-size: 1.1rem;
   font-weight: 600;
-  margin: 0 0 1rem 0;
-  padding-bottom: 0.75rem;
+  margin: 0 0 0.75rem 0;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--exec-border);
-  flex-shrink: 0;
 }
 
 /* --- Conversation Panel --- */
-.conversation-panel {
-  min-height: 0; /* Allow panel to shrink */
-}
-
 .conversation-log {
   flex: 1;
   overflow-y: auto;
@@ -147,58 +141,54 @@
 }
 
 .bubble-text {
-  color: var(--exec-text-secondary);
   line-height: 1.5;
-  margin-left: 8px;
   font-size: 0.9rem;
 }
 
 .log-bubble.user {
   background-color: var(--exec-user-bubble);
-  align-self: flex-start;
-  border-top-left-radius: 0;
   color: var(--exec-text-user);
+  align-self: flex-start;
 }
 
 .log-bubble.investor {
   background-color: var(--exec-investor-bubble);
-  align-self: flex-start;
-  border-top-left-radius: 0;
   color: var(--exec-primary-orange);
+  align-self: flex-start;
 }
 
-/* --- User Panel --- */
+/* --- User Panel (Feed & Controls) --- */
 .user-panel {
-  min-height: 0; /* Allow panel to shrink */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+  min-height: 0;
 }
 
+/* Camera feed */
 .camera-container {
   flex: 1;
   background-color: #000;
-  border-radius: 8px;
-  min-height: 200px; /* Reduced minimum height */
+  border-radius: 12px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  min-height: 180px;
 }
 
+/* Controls */
 .controls-container {
   display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  flex-shrink: 0; /* Prevent controls from shrinking */
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-/* --- Controls Container - Buttons in Single Line --- */
-.controls-container {
-  display: flex;
-  flex-direction: row; /* Changed from column to row */
-  gap: 0.5rem;
-  flex-shrink: 0;
-  margin-top: 4px;
-}
-
-/* --- Enhanced Button Styles --- */
 .exec-button {
-  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,81 +196,52 @@
   padding: 0.6rem 1rem;
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
   border-radius: 8px;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  flex-shrink: 0;
-  min-width: 0;
-  line-height: 1.2;
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.exec-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.exec-button:hover::before {
-  opacity: 1;
-}
-
-.exec-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  flex: 1 1 auto;
+  min-width: 120px;
 }
 
 .exec-button.primary {
   color: #fff;
   border-color: #F97316;
   background: linear-gradient(135deg, #F97316, #EA580C);
-  box-shadow: 0 4px 6px rgba(249, 115, 22, 0.25), 
-              inset 0 1px 1px rgba(255, 255, 255, 0.2);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .exec-button.primary:hover {
   background: linear-gradient(135deg, #FB923C, #F97316);
-  box-shadow: 0 6px 12px rgba(249, 115, 22, 0.3), 
-              inset 0 1px 1px rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
 }
 
 .exec-button.secondary {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  background: rgba(255,255,255,0.05);
   color: var(--exec-text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
-              inset 0 1px 1px rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
 .exec-button.secondary:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15),
-              inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
+  background: rgba(255,255,255,0.1);
 }
 
-.recording {
+/* End Chat button */
+.endchat-btn {
+  width: 100%;
+  margin-top: 0.5rem;
   background: linear-gradient(135deg, #dc2626, #b91c1c);
-  border-color: #ef4444;
-  box-shadow: 0 0 15px rgba(220, 38, 38, 0.5), 
-              inset 0 1px 1px rgba(255, 255, 255, 0.2);
-  animation: pulse 1.5s infinite;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.endchat-btn:hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.4);
 }
 
 /* --- Shimmer & Cursor --- */
@@ -300,9 +261,7 @@
 }
 
 @keyframes shimmer {
-  100% {
-    background-position: -200% 0;
-  }
+  100% { background-position: -200% 0; }
 }
 
 .typing-cursor {
@@ -314,70 +273,102 @@
   margin-left: 4px;
 }
 
-.investor-card.speaking {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
-}
-
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
 
-/* --- Responsive Design --- */
-@media (max-width: 1024px) {
-  .main-content-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
-  }
-  
-  .conversation-panel {
-    min-height: 300px;
-  }
-}
-
-@media (max-width: 768px) {
-  .exec-layout {
-    padding: 0.5rem;
-    gap: 0.75rem;
-  }
-  
-  .investor-gallery {
-    flex-direction: column;
-    height: auto;
-    min-height: 200px;
-  }
-  
-  .investor-card.main {
-    flex: 1;
-  }
-  
-  .panel-header {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-  }
-  
-  .content-panel {
-    padding: 0.75rem;
-  }
-}
-
-/* Scrollbar styling for conversation log */
+/* --- Scrollbar --- */
 .conversation-log::-webkit-scrollbar {
   width: 6px;
 }
 
-.conversation-log::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 .conversation-log::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255,255,255,0.2);
   border-radius: 3px;
 }
 
 .conversation-log::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255,255,255,0.3);
 }
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .main-content-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .conversation-panel {
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .investor-gallery {
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
+  }
+
+  .investor-card {
+    flex: 1 1 45%;
+    min-width: 140px;
+    max-width: 220px;
+  }
+
+  .main-content-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-panel {
+    padding: 0.75rem;
+    min-height: auto;
+  }
+
+  .camera-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .controls-container {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .exec-button {
+    flex: 1 1 45%;
+    min-width: 120px;
+  }
+
+  .endchat-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .investor-gallery {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .investor-card {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .conversation-panel {
+    min-height: 200px;
+  }
+
+  .controls-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .exec-button {
+    width: 100%;
+  }
+}
+
