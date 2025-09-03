@@ -20,11 +20,13 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: var(--exec-bg);
+  background: url('../../assets/bo5.jpg') no-repeat center center fixed; /* Add the image */
+  background-size: cover; /* Ensure the image covers the entire viewport */
   font-family: 'Inter', sans-serif;
   color: var(--exec-text-primary);
   display: flex;
   flex-direction: column;
+  padding-top: 1.6rem; /* Add space below the navbar */
 }
 
 .exec-layout {

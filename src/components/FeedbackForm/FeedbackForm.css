@@ -4,6 +4,7 @@
   min-height: 100vh;
   width: 100vw;
   overflow: hidden;
+  padding-top: 1.6rem; /* Add space below the navbar */
 }
 
 .feedback-bg {

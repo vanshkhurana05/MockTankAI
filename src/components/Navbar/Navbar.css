@@ -1,13 +1,21 @@
 .navbar {
+  position: sticky; /* Keeps navbar fixed at the top */
+  top: 0;
+  z-index: 100;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   backdrop-filter: blur(80px);
-  box-shadow: inset black;
-  background-color: transparent;
   padding: 1.1rem 2.3rem;
   margin-right: 1.5rem;
   margin-left: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* 3D floating effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(255, 255, 255, 0.1);
+
 }
+
+
 
 .navbar-container {
   max-width: 1400px;
