@@ -54,15 +54,34 @@ const Navbar = () => {
             <Link to="/" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Home</Link>
           </li>
           <li className="navbar-item">
-            <Link to="/simulation" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Simulations</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="#" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Recents</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/feedback" className="navbar-link" onClick={() => setMobileMenuOpen(false)}>Feedback</Link>
-          </li>
+  <Link
+    to={user ? "/simulation" : "/signin"}  // 🔑 redirect if not logged in
+    className="navbar-link"
+    onClick={() => setMobileMenuOpen(false)}
+  >
+    Simulations
+  </Link>
+</li>
 
+<li className="navbar-item">
+  <Link
+    to={user ? "/recents" : "/signin"} // change "#" to /recents route if you have one
+    className="navbar-link"
+    onClick={() => setMobileMenuOpen(false)}
+  >
+    Recents
+  </Link>
+</li>
+
+<li className="navbar-item">
+  <Link
+    to={user ? "/feedback" : "/signin"}
+    className="navbar-link"
+    onClick={() => setMobileMenuOpen(false)}
+  >
+    Feedback
+  </Link>
+</li>
           {/* ✅ Mobile-only Get Started */}
           {!user && (
             <li className="navbar-item mobile-only">
