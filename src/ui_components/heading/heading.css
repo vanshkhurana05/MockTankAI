@@ -1,6 +1,31 @@
+/* Responsive and non-flickering TextType styling */
 .text-type {
-  display: inline-block;
-  white-space: pre-wrap;
+  display: block;
+  width: 100%;
+  min-height: 2.5em;                /* Prevents flicker by reserving space */
+  white-space: nowrap;               /* Prevents text from wrapping */
+  overflow: hidden;                  /* Hides overflowed text */
+  text-overflow: ellipsis;           /* Adds ... if text is too long */
+  text-align: center;
+  font-size: 3rem; /* Default for desktop/laptop */
+}
+
+@media (max-width: 900px) {
+  .text-type {
+    font-size: 2.2rem; /* Tablet */
+    min-height: 2em;
+  }
+}
+
+@media (max-width: 600px) {
+  .text-type {
+    font-size: 1.1rem;      /* Mobile */
+    min-height: 3.2em;      /* Increased height for 2-3 lines of text */
+    line-height: 1.4;
+    padding: 0.5em 0;
+    white-space: normal;    /* Allow wrapping on mobile */
+    word-break: break-word; /* Prevent overflow */
+  }
 }
 
 .text-type__cursor {

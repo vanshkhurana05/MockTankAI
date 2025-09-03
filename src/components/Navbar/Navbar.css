@@ -1,6 +1,12 @@
 .navbar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(80px);
+  box-shadow: inset black;
   background-color: transparent;
-  padding: 1.2rem 2.5rem;
+  padding: 1.1rem 2.3rem;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
 }
 
 .navbar-container {
@@ -26,22 +32,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2.2rem;
+  gap: 1.2rem;
   padding: 0;
   margin: 0;
   flex: 1;
+  flex-wrap: nowrap; /* ✅ prevent wrapping on larger screens */
 }
 
-.navbar-item { display: flex; align-items: center; }
+.navbar-item { 
+  display: flex; 
+  align-items: center; 
+}
 
 .navbar-link {
   color: #e0e0e0;
   text-decoration: none;
   font-size: 18px;
-  transition: color .25s ease;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
 }
 
-.navbar-link:hover { color: #f3ec78; }
+.navbar-link:hover { 
+  color: #f3ec78; 
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: scale(1.05);
+}
 
 .navbar-cta {
   flex: 0 0 auto;
@@ -56,14 +72,72 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  transition: background-color .25s ease, transform .1s ease;
+  transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
-.navbar-button:hover { background-color: #de2727; }
+.navbar-button:hover { 
+  background-color: #de2727; 
+  transform: scale(1.05);
+}
+
 .navbar-button:active { transform: scale(0.98); }
 
-@media (max-width: 900px) {
-  .navbar-menu { gap: 1.2rem; }
-  .navbar-link { font-size: 16px; }
-  .navbar-logo h2 { font-size: 24px; }
+/* 🔹 Hamburger icon */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.navbar-toggle span {
+  width: 25px;
+  height: 3px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* ✅ Tablet adjustments (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .navbar-menu { gap: 0.8rem; } 
+  .navbar-link { font-size: 16px; padding: 6px 10px; } 
+  .navbar-logo h2 { font-size: 22px; }
+  .navbar-button { padding: 0.7rem 1.2rem; font-size: 14px; }
+}
+
+/* ✅ Mobile styles */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-wrap: wrap;
+  }
+
+  .navbar-toggle {
+    display: flex; /* show hamburger */
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    width: 100%;
+    display: none; /* hidden by default */
+    margin-top: 1rem;
+  }
+
+  .navbar-menu.active {
+    display: flex; /* show when toggled */
+  }
+
+  /* ✅ CTA button moves below menu */
+  .navbar-cta {
+    display: none;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .navbar-cta.active {
+    display: block;
+  }
 }
