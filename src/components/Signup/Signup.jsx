@@ -27,7 +27,7 @@ export default function SignUp() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("User registered successfully:", user);
-        navigate("/simulation"); // ✅ Redirect after sign up
+        navigate("/"); // ✅ Redirect after sign up
       })
       .catch((err) => {
         console.error("Error during Sign Up:", err);
@@ -41,7 +41,7 @@ export default function SignUp() {
       .then((result) => {
         const user = result.user;
         console.log("Google Sign-Up successful. User:", user);
-        navigate("/simulation"); // ✅ Redirect after sign up
+        navigate("/"); // ✅ Redirect after sign up
       })
       .catch((error) => {
         console.error("Error during Google Sign-Up:", error);
