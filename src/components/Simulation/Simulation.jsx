@@ -2,11 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../Navbar/Navbar";
 import CameraPreview from "../CameraPreview/CameraPreview";
 import "./Simulation.css";
-import { FaMicrophone, FaStop, FaChartLine, FaUser, FaBuilding } from "react-icons/fa";
+import {
+  FaMicrophone,
+  FaStop,
+  FaChartLine,
+  FaUser,
+  FaBuilding,
+} from "react-icons/fa";
 import henry from "../../assets/1.mp4";
 import shreya from "../../assets/2.mp4";
-import ananya from "../../assets/3.mp4"
-import { Link } from "react-router-dom";
+import ananya from "../../assets/3.mp4";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useUID } from "../../context/AuthContext.jsx";
 
 const ShimmerLoading = () => (
   <div className="shimmer-container">
