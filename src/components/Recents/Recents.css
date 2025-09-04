@@ -44,8 +44,8 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.recent-table th,
-.recent-table td {
+/* Bubble-style cards */
+.conversation-card {
   padding: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -121,3 +121,4 @@
   justify-content: center; /* centers the buttons */
   gap: 1.5rem;             /* spacing between buttons */
 }
+

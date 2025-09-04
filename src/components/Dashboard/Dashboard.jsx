@@ -10,18 +10,9 @@ import '../../ui_components/heading/heading.css';
 import '../../ui_components/heading/heading.jsx';
 import TextType from '../../ui_components/heading/heading.jsx';
 import { useEffect } from "react";
-import { useUID } from "../../context/AuthContext.jsx";
 
 const Dashboard = () => {
-  const currentUser = useUID();
 
-  useEffect(() => {
-    if (currentUser) {
-      console.log("UID from context:", currentUser.uid);
-    } else {
-      console.log("No user logged in");
-    }
-  }, [currentUser]);
   return (
     <div className="dashboard-container" style={{ position: 'relative', overflow: 'hidden' }}>
       {/* Background */}
