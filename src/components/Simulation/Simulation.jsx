@@ -319,6 +319,7 @@ const Simulation = () => {
               confidence_score: analysisData[0].confidence_score,
               investor_alignment: analysisData[0].investor_alignment,
               createdAt: new Date().toISOString(),
+              chats : chatHistory,
             },
           }),
         }
