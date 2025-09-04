@@ -1,81 +1,131 @@
 import React, { useEffect, useState } from "react";
 import "./Recents.css";
+import { FaUser, FaBuilding, FaComments } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 import Navbar from "../Navbar/Navbar";
 
 const Recents = () => {
-  const [userData, setUserData] = useState(null);
+  const { currentUser, authLoading } = useAuth();
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Simulated API fetch
-    const data = {
-      name: "Sarah",
-      sessionsCompleted: 12,
-      averageScore: 8.5,
-      sessions: [
-        { id: 1, date: "2024-07-20", status: "Completed" },
-        { id: 2, date: "2024-07-15", status: "Completed" },
-        { id: 3, date: "2024-07-10", status: "In Progress" },
-        { id: 4, date: "2024-07-05", status: "Completed" },
-        { id: 5, date: "2024-06-30", status: "Completed" },
-      ],
-    };
-    setUserData(data);
-  }, []);
+    async function fetchHistory() {
+      if (authLoading) return; // wait until Firebase auth is ready
 
-  if (!userData) return <p>Loading...</p>;
+      if (!currentUser) {
+        setError("Please sign in to view your conversations.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const uid = currentUser.uid;
+        const response = await fetch(
+          `https://mocktankbackend-i0js.onrender.com/get_chats/${uid}`
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch history");
+
+        const data = await response.json();
+        console.log("Fetched Final History:", data);
+        console.log("Data history:", data.history);
+        // setHistory(data.history || []);
+      } catch (err) {
+        console.error("Error fetching history:", err);
+        setError("Could not load recent conversation.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchHistory();
+  }, [currentUser, authLoading]);
+
+  if (authLoading) {
+    return (
+      <div className="recents-page">
+        <div className="recents-header">
+          <FaComments /> Recent Conversation
+        </div>
+        <p className="empty-text">Checking authentication...</p>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="recents-page">
+        <div className="recents-header">
+          <FaComments /> Recent Conversation
+        </div>
+        <p className="empty-text">Loading...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="recents-page">
+        <div className="recents-header">
+          <FaComments /> Recent Conversation
+        </div>
+        <p className="empty-text">{error}</p>
+      </div>
+    );
+  }
+
+  if (history.length === 0) {
+    return (
+      <div className="recents-page">
+        <Navbar />
+        <div className="recents-header">
+          <FaComments /> Recent Conversation
+        </div>
+        <p className="empty-text">No messages found.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="recent-container">
-        <div>
-        <Navbar />
-        </div>
-      <h1>Welcome back, {userData.name}</h1>
-
-      <div className="stats-container">
-        <div className="stat-card">
-          <p>Sessions Completed</p>
-          <h2>{userData.sessionsCompleted}</h2>
-        </div>
-        <div className="stat-card">
-          <p>Average Score</p>
-          <h2>{userData.averageScore}</h2>
-        </div>
+    <div className="recents-page">
+      <Navbar />
+      <div className="recents-header">
+        <FaComments /> Recent Conversation
       </div>
 
-      <h2 className="recent-title">Recent Sessions</h2>
-      <table className="recent-table">
-        <thead>
-          <tr>
-            <th>Session</th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {userData.sessions.map((s, idx) => (
-            <tr key={s.id}>
-              <td>Session {idx + 1}</td>
-              <td>{s.date}</td>
-              <td>
-                <span
-                  className={`status-badge ${
-                    s.status === "Completed" ? "completed" : "in-progress"
-                  }`}
-                >
-                  {s.status}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="btn-container">
-        <button className="btn start">Start New Session</button>
-        <button className="btn review">Review Feedback</button>
+      <div className="conversation-list">
+        {history.map((msg, index) => (
+          <div
+            key={index}
+            className={`conversation-card ${
+              msg.speaker === "user" ? "user-msg" : "investor-msg"
+            }`}
+          >
+            <div className="card-header">
+              {msg.speaker === "user" ? (
+                <>
+                  <FaUser className="icon user-icon" />
+                  <span>You</span>
+                </>
+              ) : (
+                <>
+                  <FaBuilding className="icon investor-icon" />
+                  <span>{msg.name || "Investor"}</span>
+                </>
+              )}
+            </div>
+            <div className="card-body">{msg.text}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
 export default Recents;
+
+
+
+

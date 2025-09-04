@@ -1,97 +1,87 @@
-.recent-container {
-  background: #0b111e;
-  color: white;
-  min-height: 100vh;
+.recents-page {
   padding: 2rem;
+  min-height: calc(100vh - 70px);
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "Inter", sans-serif;
 }
 
-h1 {
-  font-size: 2rem;
+.recents-header {
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 1.5rem;
+  color: #fbbf24;
 }
 
-.stats-container {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.stat-card {
-  background: #111827;
-  padding: 1.5rem;
-  border-radius: 12px;
+.empty-text {
+  color: #94a3b8;
+  font-style: italic;
   text-align: center;
-  flex: 1;
 }
 
-.stat-card h2 {
-  font-size: 2rem;
-  margin-top: 0.5rem;
-}
-
-.recent-title {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-}
-
-.recent-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #111827;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.recent-table th,
-.recent-table td {
-  padding: 1rem;
-  border-bottom: 1px solid #2c2f38;
-}
-
-.status-badge {
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: bold;
-}
-
-.completed {
-  background: #16a34a;
-}
-
-.in-progress {
-  background: #facc15;
-}
-
-.btn-container {
-  margin-top: 2rem;
+.conversation-list {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
+  max-height: 75vh;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
-.btn {
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s;
+/* Scrollbar */
+.conversation-list::-webkit-scrollbar {
+  width: 6px;
+}
+.conversation-list::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 10px;
 }
 
-.start {
-  background: #16a34a;
-  color: white;
+/* Bubble-style cards */
+.conversation-card {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #1e293b;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background 0.3s ease;
 }
 
-.start:hover {
-  background: #15803d;
+.conversation-card:hover {
+  transform: translateY(-3px);
+  background: #334155;
 }
 
-.review {
-  background: #374151;
-  color: white;
+.card-header {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  gap: 8px;
 }
 
-.review:hover {
-  background: #1f2937;
+.card-body {
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
+
+/* Differentiate user vs investor */
+.user-msg {
+  border-left: 4px solid #38bdf8;
+}
+.investor-msg {
+  border-left: 4px solid #f87171;
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+.user-icon {
+  color: #38bdf8;
+}
+.investor-icon {
+  color: #f87171;
+}
+
