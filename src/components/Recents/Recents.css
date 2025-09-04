@@ -1,87 +1,86 @@
-.recent-container {
-    padding: 2rem;
-    min-height: calc(100vh - 70px);
-    background: #0F172a;
-    color: #e2e8f0;
-    font-family: "Inter", sans-serif;
-}
-
-.recents-header {
-  font-size: 1.6rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 1.5rem;
-  color: #fbbf24;
-}
-
-.empty-text {
-  color: #94a3b8;
-  font-style: italic;
-  text-align: center;
-}
-
-.conversation-list {
+.recents-page {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  max-height: 75vh;
-  overflow-y: auto;
-  padding-right: 5px;
 }
 
-/* Scrollbar */
-.conversation-list::-webkit-scrollbar {
-  width: 6px;
-}
-.conversation-list::-webkit-scrollbar-thumb {
-  background: #475569;
-  border-radius: 10px;
-}
-
-/* Bubble-style cards */
-.conversation-card {
-  padding: 1rem;
-  border-radius: 1rem;
-  background: #1e293b;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease, background 0.3s ease;
+.recents-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px 40px; /* push below navbar */
+  color: white;
 }
 
-.conversation-card:hover {
-  transform: translateY(-3px);
-  background: #334155;
+.page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 
-.card-header {
+.page-subtitle {
+  font-size: 1rem;
+  color: #aaa;
+  margin-bottom: 1.5rem;
+}
+
+.status-msg {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #ddd;
+}
+
+.status-msg.error {
+  color: #ff5555;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 10px;
+}
+
+.chat-item {
   display: flex;
   align-items: center;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  gap: 8px;
+  gap: 15px;
+  background: #1f1f2b;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: white;
+  transition: background 0.2s, transform 0.2s;
 }
 
-.card-body {
-  font-size: 0.95rem;
-  line-height: 1.4;
+.chat-item:hover {
+  background: #2a2a3a;
+  transform: translateY(-2px);
 }
 
-/* Differentiate user vs investor */
-.user-msg {
-  border-left: 4px solid #38bdf8;
-}
-.investor-msg {
-  border-left: 4px solid #f87171;
+.chat-icon {
+  font-size: 1.5rem;
 }
 
-.icon {
-  font-size: 1.2rem;
+.chat-info h3 {
+  font-size: 1.1rem;
+  margin: 0;
 }
-.user-icon {
-  color: #38bdf8;
+
+.chat-info p {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 3px 0;
 }
-.investor-icon {
-  color: #f87171;
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #888;
 }
+
 
