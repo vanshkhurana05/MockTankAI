@@ -280,14 +280,12 @@ const Simulation = () => {
     console.log("Final History:", chatHistory);
 
     try {
-      // Transform chatHistory to the format required by the /analyse endpoint
       const formattedConversation = chatHistory.map((message) => ({
         role: message.speaker === "user" ? "user" : "System",
         content: message.text,
       }));
 
-      // Send the formatted conversation to your analysis endpoint
-      const response = await fetch(
+      const analysisResponse = await fetch(
         "https://mocktankbackend-i0js.onrender.com/analyse",
         {
           method: "POST",
@@ -300,15 +298,43 @@ const Simulation = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+      if (!analysisResponse.ok) {
+        throw new Error(`Analysis API failed: ${analysisResponse.statusText}`);
       }
 
-      const data = await response.json();
-      console.log("Analyse API response:", data);
+      const analysisData = await analysisResponse.json();
+      console.log("Analyse API response:", analysisData);
 
-      // Navigate to the analysis page with the returned data
-      navigate("/deepanalysis", { state: { analysisData: data } });
+      const updateResponse = await fetch(
+        `https://mocktankbackend-i0js.onrender.com/update_chats/${uid}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            sessions: {
+              wpm: analysisData.wpm,
+              res_length: analysisData[0].res_length,
+              clarityIdx: analysisData[0].clarityIdx,
+              vocabRichness: analysisData[0].vocabRichness,
+              engagement_score: analysisData[0].engagement_score,
+              confidence_score: analysisData[0].confidence_score,
+              investor_alignment: analysisData[0].investor_alignment,
+              createdAt: new Date().toISOString(),
+            },
+          }),
+        }
+      );
+
+      if (!updateResponse.ok) {
+        throw new Error(`Failed to update chats: ${updateResponse.statusText}`);
+      }
+
+      const updatedUserData = await updateResponse.json();
+      console.log("Updated user:", updatedUserData);
+
+      navigate("/deepanalysis", { state: { analysisData: analysisData } });
     } catch (error) {
       console.error("Error ending chat:", error);
     }
@@ -381,11 +407,10 @@ const Simulation = () => {
           <div className="content-panel conversation-panel">
             <h3 className="panel-header">Conversation Transcript</h3>
             <div className="conversation-log">
-              {/* RENDER THE ENTIRE CHAT HISTORY */}
-              {chatHistory.map((message, index) => {
+              {/* RENDER THE LAST TWO MESSAGES FROM CHAT HISTORY */}
+              {chatHistory.slice(-2).map((message, index, arr) => {
                 const isLastInvestorMessage =
-                  index === chatHistory.length - 1 &&
-                  message.speaker === "investor";
+                  index === arr.length - 1 && message.speaker === "investor";
 
                 if (message.speaker === "user") {
                   return (
