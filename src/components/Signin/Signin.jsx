@@ -22,7 +22,7 @@ export default function SignIn() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Signed in successfully:", user);
-        navigate("/simulation"); // ✅ Redirect after login
+        navigate("/"); // ✅ Redirect after login
       })
       .catch((err) => {
         console.error("Error during sign-in:", err);
@@ -36,7 +36,7 @@ export default function SignIn() {
       .then((result) => {
         const user = result.user;
         console.log("Google Sign-In successful. User:", user);
-        navigate("/simulation"); // ✅ Redirect after login
+        navigate("/"); // ✅ Redirect after login
       })
       .catch((error) => {
         console.error("Error during Google Sign-In:", error);
