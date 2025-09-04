@@ -1,0 +1,29 @@
+.analysis-container {
+  background: #0b111e;
+  color: white;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.chart-card {
+  background: #111827;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.chart-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}

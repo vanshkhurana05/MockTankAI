@@ -12,6 +12,9 @@ import FeedbackForm from './components/FeedbackForm/FeedbackForm'
 import { useContext } from 'react'
 import startChatContext from './context/startChatContext'
 import { useEffect } from 'react'
+import DeepAnalysis from './components/DeepAnalysis/DeepAnalysis'
+import Recents from './components/Recents/Recents'
+import {AuthProvider} from './context/AuthContext'
 
 function App() {
   useEffect(() => {
@@ -28,7 +31,8 @@ function App() {
   }, []);
   return (
     <startChatContext.Provider value={{startChat:true}}>
-    <Router>
+<AuthProvider>
+  <Router>
     <Routes>
       <Route path='/navbar' element={<Navbar/>}/>
       <Route path='/' element={<Dashboard/>}/>
@@ -36,8 +40,11 @@ function App() {
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/simulation' element={<Simulation/>}/>
       <Route path='/feedback' element={<FeedbackForm/>}/>
+      <Route path='/recents' element={<Recents/>}/>
+      <Route path='/deepanalysis' element={<DeepAnalysis/>}/>
     </Routes>
-    </Router>
+  </Router>
+</AuthProvider>
     </startChatContext.Provider>
   )
 }
