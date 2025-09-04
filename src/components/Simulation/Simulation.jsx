@@ -13,8 +13,7 @@ import henry from "../../assets/1.mp4";
 import shreya from "../../assets/2.mp4";
 import ananya from "../../assets/3.mp4";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { useUID } from "../../context/AuthContext.jsx";
-
+import { useAuth } from "../../context/AuthContext"; // ✅ new auth context
 const ShimmerLoading = () => (
   <div className="shimmer-container">
     <div className="shimmer-bar"></div>
@@ -39,7 +38,9 @@ const Simulation = () => {
   const videoRefShreya = useRef(null);
   const videoRefAnanya = useRef(null);
   const videoRefHenry = useRef(null);
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
+
+  const { currentUser } = useAuth(); // ✅ using new auth context
 
   const investorVideoRefs = {
     "Shreya Malhotra": videoRefShreya,
@@ -60,16 +61,14 @@ const Simulation = () => {
     };
   }, []);
 
-  // Welcome message on page load, now populates chat history
   useEffect(() => {
     const initialMessage =
       "Hello. When you're ready to present your pitch, press the 'Start Pitch' button below.";
 
-    // Set the initial message in the chat history
     setChatHistory([
       { speaker: "investor", name: "Ananya Mehra", text: initialMessage },
     ]);
-    setInvestorResponse(initialMessage); // Keep this for the typing effect
+    setInvestorResponse(initialMessage);
 
     const speakTimeout = setTimeout(() => {
       setActiveSpeaker("Ananya Mehra");
@@ -79,7 +78,6 @@ const Simulation = () => {
     return () => clearTimeout(speakTimeout);
   }, [availableVoices]);
 
-  // Effect to manage video playback
   useEffect(() => {
     if (isRecording || isLoading) {
       Object.values(investorVideoRefs).forEach(
@@ -125,7 +123,6 @@ const Simulation = () => {
     }
   };
 
-  // Effect to set up Speech Recognition and handle results
   useEffect(() => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -146,7 +143,6 @@ const Simulation = () => {
       if (finalTranscript.trim()) {
         const userText = finalTranscript.trim();
 
-        // Add user's speech to history
         setChatHistory((prev) => [
           ...prev,
           { speaker: "user", text: userText },
@@ -168,7 +164,7 @@ const Simulation = () => {
           const fullResponseText = aiResponse[1][1].content;
           const parts = fullResponseText.split(/:(.*)/s);
 
-          let speakerName = "Ananya Mehra"; // Default
+          let speakerName = "Ananya Mehra";
           let messageText = fullResponseText;
 
           if (parts.length > 1) {
@@ -176,7 +172,6 @@ const Simulation = () => {
             messageText = parts[1].trim();
           }
 
-          // Add investor's response to history
           setChatHistory((prev) => [
             ...prev,
             { speaker: "investor", name: speakerName, text: messageText },
@@ -201,7 +196,6 @@ const Simulation = () => {
     return () => recognition.stop();
   }, [availableVoices]);
 
-  // Effect for the typing animation
   useEffect(() => {
     if (investorResponse) {
       let i = 0;
@@ -272,10 +266,13 @@ const Simulation = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  const currentUser = useUID();
-
   async function handleEndChat() {
-    const uid = currentUser ? currentUser.uid : "guest";
+    if (!currentUser) {
+      console.error("User not logged in, cannot save session.");
+      return;
+    }
+
+    const uid = currentUser.uid;
     console.log("--- CHAT ENDED ---");
     console.log("Final History:", chatHistory);
 
@@ -407,7 +404,6 @@ const Simulation = () => {
           <div className="content-panel conversation-panel">
             <h3 className="panel-header">Conversation Transcript</h3>
             <div className="conversation-log">
-              {/* RENDER THE LAST TWO MESSAGES FROM CHAT HISTORY */}
               {chatHistory.slice(-2).map((message, index, arr) => {
                 const isLastInvestorMessage =
                   index === arr.length - 1 && message.speaker === "investor";
@@ -422,7 +418,6 @@ const Simulation = () => {
                     </div>
                   );
                 } else {
-                  // speaker is 'investor'
                   return (
                     <div className="log-bubble investor" key={index}>
                       <div className="bubble-header">
@@ -443,7 +438,6 @@ const Simulation = () => {
                 }
               })}
 
-              {/* SHIMMER LOADING FOR WHEN AI IS THINKING */}
               {isLoading && (
                 <div className="log-bubble investor">
                   <div className="bubble-header">
@@ -487,3 +481,4 @@ const Simulation = () => {
 };
 
 export default Simulation;
+

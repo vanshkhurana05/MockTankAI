@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -14,14 +15,17 @@ export const AuthProvider = ({ children }) => {
         setCurrentUser(user);
 
         try {
-          const res = await fetch("https://mocktankbackend-i0js.onrender.com/create_user", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              uid: user.uid,
-              sessions: []
-            }),
-          });
+          const res = await fetch(
+            "https://mocktankbackend-i0js.onrender.com/create_user",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                uid: user.uid,
+                sessions: [],
+              }),
+            }
+          );
 
           if (!res.ok) throw new Error("Failed to create user in backend");
 
@@ -33,16 +37,19 @@ export const AuthProvider = ({ children }) => {
       } else {
         setCurrentUser(null);
       }
+      setAuthLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
   return (
-    <AuthContext.Provider value={currentUser}>
+    <AuthContext.Provider value={{ currentUser, authLoading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useUID = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
+
+
