@@ -9,11 +9,11 @@ import {
   FaUser,
   FaBuilding,
 } from "react-icons/fa";
-import henry from "../../assets/henry.mp4";
-import shreya from "../../assets/shreya.mp4";
-import ananya from "../../assets/ananya.mp4";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.jsx"; // ✅ updated import
+import henry from "../../assets/1.mp4";
+import shreya from "../../assets/2.mp4";
+import ananya from "../../assets/3.mp4";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useUID } from "../../context/AuthContext.jsx";
 
 const ShimmerLoading = () => (
   <div className="shimmer-container">

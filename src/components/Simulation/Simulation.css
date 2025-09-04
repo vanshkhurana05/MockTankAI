@@ -18,9 +18,10 @@
 /* --- Main Page Layout --- */
 .exec-simulation-page {
   width: 100vw;
-  min-height: 100vh; /* ✅ allow scroll instead of lock */
+  min-height: 100vh; /* Allow scrolling */
   overflow-x: hidden;
-  background-color: var(--exec-bg);
+  background: url('../../assets/bo5.jpg') no-repeat center center fixed; /* Add the image */
+  background-size: cover; /* Ensure the image covers the entire viewport */
   font-family: 'Inter', sans-serif;
   color: var(--exec-text-primary);
   display: flex;
