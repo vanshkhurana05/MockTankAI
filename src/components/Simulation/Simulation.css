@@ -3,25 +3,25 @@
 
 :root {
   --exec-bg: #0B111E;
-  --exec-panel-bg: #111827;
-  --exec-border: rgba(255, 255, 255, 0.1);
-  --exec-shadow: rgba(0, 0, 0, 0.5);
+  --exec-panel-bg: rgba(255, 255, 255, 0.05); /* lighter transparent panel */
+  --exec-border: rgba(255, 255, 255, 0.15);
+  --exec-shadow: rgba(0, 0, 0, 0.3);
   --exec-primary-orange: #F97316;
   --exec-primary-orange-light: #FA8334;
   --exec-text-primary: #F1F5F9;
   --exec-text-secondary: #94A3B8;
   --exec-text-user: #38BDF8;
-  --exec-user-bubble: #1E293B;
-  --exec-investor-bubble: #334155;
+  --exec-user-bubble: rgba(30, 41, 59, 0.6);   /* glass user bubble */
+  --exec-investor-bubble: rgba(51, 65, 85, 0.6); /* glass investor bubble */
 }
 
 /* --- Main Page Layout --- */
 .exec-simulation-page {
-  width: 100vw;
-  min-height: 100vh; /* Allow scrolling */
+  width: 100%;
+  min-height: 100vh;
   overflow-x: hidden;
-  background: url('../../assets/bo5.jpg') no-repeat center center fixed; /* Add the image */
-  background-size: cover; /* Ensure the image covers the entire viewport */
+  background: url('../../assets/bo5.jpg') no-repeat center center fixed;
+  background-size: cover;
   font-family: 'Inter', sans-serif;
   color: var(--exec-text-primary);
   display: flex;
@@ -35,21 +35,21 @@
   padding: 1rem;
   gap: 1rem;
   min-height: 0;
-  overflow-y: auto; /* ✅ scrolling enabled */
+  overflow-y: auto;
 }
 
 /* --- Investor Gallery --- */
 .investor-gallery {
   display: flex;
   gap: 1rem;
-  height: 35vh;
+  height: 37vh;
   min-height: 180px;
   flex-shrink: 0;
 }
 
 .investor-card {
   flex: 1;
-  background-color: var(--exec-panel-bg);
+  background: var(--exec-panel-bg);
   border: 1px solid var(--exec-border);
   border-radius: 12px;
   display: flex;
@@ -57,11 +57,14 @@
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px var(--exec-shadow);
 }
 
 .investor-video-placeholder {
   flex: 1;
-  background-color: #000;
+  background-color: transparent;
   position: relative;
 }
 
@@ -75,9 +78,10 @@
   padding: 0.5rem;
   font-weight: 500;
   font-size: 0.85rem;
-  background-color: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   border-top: 1px solid var(--exec-border);
   text-align: center;
+  margin: 0;
 }
 
 .investor-card.speaking {
@@ -97,22 +101,25 @@
 
 /* --- Panels --- */
 .content-panel {
-  background-color: var(--exec-panel-bg);
+  background: var(--exec-panel-bg);
   border: 1px solid var(--exec-border);
-  border-radius: 12px;
-  padding: 1rem;
+  border-radius: 16px;
+  margin: 1rem;
   display: flex;
   flex-direction: column;
   min-height: 0;
   flex-shrink: 1;
   overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px var(--exec-shadow);
 }
 
 .panel-header {
+  background: rgba(0, 0, 0, 0.4);
   font-size: 1.1rem;
   font-weight: 600;
-  margin: 0 0 0.75rem 0;
-  padding-bottom: 0.5rem;
+  padding: 1rem;
   border-bottom: 1px solid var(--exec-border);
 }
 
@@ -127,9 +134,13 @@
 }
 
 .log-bubble {
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.5rem 0.1rem 0.8rem;
   border-radius: 12px;
   max-width: 90%;
+  margin-left: 0.75rem;
+  margin-top: 0.75rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .bubble-header {
@@ -147,15 +158,13 @@
 }
 
 .log-bubble.user {
-  background-color: var(--exec-user-bubble);
+  background: var(--exec-user-bubble);
   color: var(--exec-text-user);
-  align-self: flex-start;
 }
 
 .log-bubble.investor {
-  background-color: var(--exec-investor-bubble);
+  background: var(--exec-investor-bubble);
   color: var(--exec-primary-orange);
-  align-self: flex-start;
 }
 
 /* --- User Panel (Feed & Controls) --- */
@@ -170,23 +179,34 @@
 /* Camera feed */
 .camera-container {
   flex: 1;
-  background-color: #000;
-  border-radius: 12px;
-  overflow: hidden;
+  background: transparent;
+  border: 1px solid var(--exec-border);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   aspect-ratio: 16 / 9;
   width: 100%;
   min-height: 180px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 12px var(--exec-shadow);
 }
 
-/* Controls */
+/* Controls section */
 .controls-container {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
   justify-content: center;
+  background: var(--exec-panel-bg);
+  border: 1px solid var(--exec-border);
+  border-radius: 12px;
+  padding: 0.75rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px var(--exec-shadow);
 }
 
 .exec-button {
@@ -208,11 +228,11 @@
 .exec-button.primary {
   color: #fff;
   border-color: #F97316;
-  background: linear-gradient(135deg, #F97316, #EA580C);
+  background: linear-gradient(135deg, rgba(249,115,22,0.9), rgba(234,88,12,0.9));
 }
 
 .exec-button.primary:hover {
-  background: linear-gradient(135deg, #FB923C, #F97316);
+  background: linear-gradient(135deg, rgba(251,146,60,0.95), rgba(249,115,22,0.95));
 }
 
 .exec-button.secondary {
@@ -229,7 +249,7 @@
 .endchat-btn {
   width: 100%;
   margin-top: 0.5rem;
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  background: linear-gradient(135deg, #dc2626cc, #b91c1ccc);
   color: #fff;
   font-weight: 600;
   border: none;
@@ -237,6 +257,7 @@
   padding: 0.6rem 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
 }
 
 .endchat-btn:hover {
@@ -372,4 +393,3 @@
     width: 100%;
   }
 }
-

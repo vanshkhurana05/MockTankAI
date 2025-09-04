@@ -1,9 +1,9 @@
-.recents-page {
-  padding: 2rem;
-  min-height: calc(100vh - 70px);
-  background: #0f172a;
-  color: #e2e8f0;
-  font-family: "Inter", sans-serif;
+.recent-container {
+    padding: 2rem;
+    min-height: calc(100vh - 70px);
+    background: #0F172a;
+    color: #e2e8f0;
+    font-family: "Inter", sans-serif;
 }
 
 .recents-header {
