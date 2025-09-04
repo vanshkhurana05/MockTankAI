@@ -3,9 +3,9 @@ import Navbar from "../Navbar/Navbar";
 import CameraPreview from "../CameraPreview/CameraPreview";
 import "./Simulation.css";
 import { FaMicrophone, FaStop, FaChartLine, FaUser, FaBuilding } from "react-icons/fa";
-import henry from "../../assets/henry.mp4";
-import shreya from "../../assets/shreya.mp4";
-import ananya from "../../assets/ananya.mp4"
+import henry from "../../assets/1.mp4";
+import shreya from "../../assets/2.mp4";
+import ananya from "../../assets/3.mp4"
 import { Link } from "react-router-dom";
 
 const ShimmerLoading = () => (
