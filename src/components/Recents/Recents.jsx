@@ -102,7 +102,7 @@ setSessions(detailedSessions);
                 <div className="chat-icon">💬</div>
                 <div className="chat-info">
                   <h3>{session.preview}</h3>
-                  <p>ID: {session.sessionId}</p>
+                  {/* <p>ID: {session.sessionId}</p> */}
                   <span className="timestamp">
                     created at:{" "}
                     {new Date(session.createdAt).toLocaleDateString()}

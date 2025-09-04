@@ -57,7 +57,7 @@ const SessionDetails = () => {
 
       <div className="session-wrapper">
         <h2 className="page-title">Chat Session</h2>
-        <p className="page-subtitle">Session ID: {sessionId}</p>
+        {/* <p className="page-subtitle">Session ID: {sessionId}</p> */}
 
         {sessionData?.chats ? (
           <div className="chat-window">
