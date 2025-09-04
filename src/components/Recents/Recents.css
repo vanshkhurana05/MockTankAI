@@ -2,7 +2,12 @@
   background: #0b111e;
   color: white;
   min-height: 100vh;
-  padding: 2rem;
+
+  font-family: 'Poppins', sans-serif;
+}
+.recent-content {
+
+  padding: 2rem 2rem 4rem 2rem ;
 }
 
 h1 {

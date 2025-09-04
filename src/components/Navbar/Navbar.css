@@ -1,7 +1,24 @@
 .navbar {
-  background-color: transparent;
-  padding: 1.2rem 2.5rem;
-  /* position: fixed; */
+  margin-top: 1rem;
+  position: sticky; /* Keeps navbar fixed at the top */
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(80px);
+  padding: 1.1rem 2.3rem;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* 3D floating effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(255, 255, 255, 0.1);
+  transition: box-shadow 0.4s ease-in-out;
+}
+.navbar:hover {
+  
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4),
+   0 6px 8px rgba(255, 255, 255, 0.2); /* Enhanced shadow */
 }
 
 .navbar-container {
@@ -9,27 +26,22 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* ✅ keeps hamburger on right */
+  justify-content: space-between;
   gap: 24px;
   position: relative;
 }
 
 .navbar-logo h2 {
-  color: #e0e0e0;
   font-size: 28px;
-  font-weight: 700;
   letter-spacing: 0.3px;
-  margin: 0;
 }
 
 /* Center Menu */
 .navbar-menu {
-  list-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2.2rem;
-  padding: 0;
   margin: 0 auto;
   flex: 1;
 }
@@ -37,8 +49,6 @@
 .navbar-item { display: flex; align-items: center; }
 
 .navbar-link {
-  color: #e0e0e0;
-  text-decoration: none;
   font-size: 18px;
   transition: color .25s ease;
 }
@@ -187,6 +197,3 @@
     display: flex;
   }
 }
-
-
-
