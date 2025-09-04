@@ -1,32 +1,30 @@
 .recent-container {
-  background: #0b111e;
+  background: url(../../assets/bo3.png) no-repeat center center/cover;
   color: white;
   min-height: 100vh;
-
   font-family: 'Poppins', sans-serif;
+  padding: 0.15rem;
 }
+
+/* Content wrapper */
 .recent-content {
-
-  padding: 2rem 2rem 4rem 2rem ;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.35); /* transparent layer */
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.stats-container {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
+/* Stat cards */
 .stat-card {
-  background: #111827;
+  background: rgba(46, 48, 53, 0.4); /* transparent dark */
   padding: 1.5rem;
-  border-radius: 12px;
+  border-radius: 16px;
   text-align: center;
   flex: 1;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .stat-card h2 {
@@ -34,40 +32,42 @@ h1 {
   margin-top: 0.5rem;
 }
 
-.recent-title {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-}
-
+/* Table */
 .recent-table {
   width: 100%;
   border-collapse: collapse;
-  background: #111827;
-  border-radius: 12px;
+  background: rgba(46, 48, 53, 0.4);
+  border-radius: 16px;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .recent-table th,
 .recent-table td {
   padding: 1rem;
-  border-bottom: 1px solid #2c2f38;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Status badge */
 .status-badge {
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: bold;
+  color: black;
 }
 
 .completed {
-  background: #16a34a;
+  background: rgba(22, 163, 74, 0.8);
 }
 
 .in-progress {
-  background: #facc15;
+  background: rgba(250, 204, 21, 0.8);
 }
 
+/* Buttons */
 .btn-container {
   margin-top: 2rem;
   display: flex;
@@ -81,22 +81,43 @@ h1 {
   cursor: pointer;
   border: none;
   transition: background 0.2s;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .start {
-  background: #16a34a;
+  background: rgba(22, 163, 74, 0.8);
   color: white;
 }
 
 .start:hover {
-  background: #15803d;
+  background: rgba(21, 128, 61, 0.9);
 }
 
 .review {
-  background: #374151;
+  background: rgba(55, 65, 81, 0.6);
   color: white;
 }
 
 .review:hover {
-  background: #1f2937;
+  background: rgba(31, 41, 55, 0.8);
+}
+.stats-container {
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: stretch;
+  gap: 2rem;                 /* space between the two cards */
+  margin-bottom: 2rem;
+  flex-wrap: wrap;           /* allows stacking on small screens */
+}
+
+.stat-card {
+  flex: 0 0 250px;           /* fixed width for consistency */
+  min-width: 220px;
+}
+.btn-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center; /* centers the buttons */
+  gap: 1.5rem;             /* spacing between buttons */
 }
