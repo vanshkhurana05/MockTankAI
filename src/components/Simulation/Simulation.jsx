@@ -13,8 +13,7 @@ import henry from "../../assets/1.mp4";
 import shreya from "../../assets/2.mp4";
 import ananya from "../../assets/3.mp4";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { useUID } from "../../context/AuthContext.jsx";
-
+import { useAuth } from "../../context/AuthContext"; // ✅ new auth context
 const ShimmerLoading = () => (
   <div className="shimmer-container">
     <div className="shimmer-bar"></div>
