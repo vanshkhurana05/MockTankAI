@@ -114,3 +114,101 @@ background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Pricing Section */
+.pricing-section {
+  text-align: center;
+  padding: 60px 20px;
+  background: transparent; /* keep same as body bg */
+  margin: 60px auto;
+}
+
+.pricing-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #f3ec78;
+}
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Base Card Styling with Glow */
+.pricing-card {
+  background: rgba(20, 20, 20, 0.6); /* semi-transparent to blend with bg */
+  color: #fff;
+  border-radius: 16px;
+  padding: 30px 20px;
+  border: 2px solid transparent;
+  box-shadow: 0 0 15px rgba(255, 152, 0, 0.2); /* subtle glow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px rgba(206, 132, 21, 0.6);
+  border: 2px solid #ff9800;
+}
+
+.pricing-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #f3ec78;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ff9800;
+}
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.pricing-card ul li {
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.pricing-button {
+  background: #ff9800;
+  color: #000;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-button:hover {
+  background: #ffa733;
+  box-shadow: 0 0 12px #ff9800;
+}
+
+/* Glow Colors for Different Plans */
+.pricing-card.popular {
+  border: 2px solid #ff9800;
+  box-shadow: 0 0 20px rgba(255, 152, 0, 0.7);
+}
+
+.pricing-card.elite {
+  border: 2px solid #f3ec78;
+  box-shadow: 0 0 20px rgba(243, 236, 120, 0.7);
+}
+
+.pricing-card.free {
+  border: 2px solid #bbb208;
+  box-shadow: 0 0 20px rgba(243, 236, 120, 0.7);
+}
