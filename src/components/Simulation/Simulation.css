@@ -164,7 +164,7 @@
 
 .log-bubble.investor {
   background: var(--exec-investor-bubble);
-  color: var(--exec-primary-orange);
+ color: var(--exec-text-user);
 }
 
 /* --- User Panel (Feed & Controls) --- */
@@ -290,7 +290,7 @@
   display: inline-block;
   width: 2px;
   height: 1em;
-  background-color: var(--exec-primary-orange);
+  color: var(--exec-text-user);
   animation: blink 1s infinite;
   margin-left: 4px;
 }
