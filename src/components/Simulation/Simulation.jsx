@@ -9,11 +9,12 @@ import {
   FaUser,
   FaBuilding,
 } from "react-icons/fa";
-import henry from "../../assets/1.mp4";
-import shreya from "../../assets/2.mp4";
-import ananya from "../../assets/3.mp4";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { useAuth } from "../../context/AuthContext"; // ✅ new auth context
+import henry from "../../assets/henry.mp4";
+import shreya from "../../assets/shreya.mp4";
+import ananya from "../../assets/ananya.mp4";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
 const ShimmerLoading = () => (
   <div className="shimmer-container">
     <div className="shimmer-bar"></div>
@@ -28,10 +29,8 @@ const Simulation = () => {
   const [investorResponse, setInvestorResponse] = useState("");
   const [displayedResponse, setDisplayedResponse] = useState("");
   const [isInvestorSpeaking, setIsInvestorSpeaking] = useState(false);
-  const [activeSpeaker, setActiveSpeaker] = useState(null);
+  const [activeSpeaker, setActiveSpeaker] = useState("Ananya Mehra");
   const [availableVoices, setAvailableVoices] = useState([]);
-
-  // --- STATE FOR CHAT HISTORY ---
   const [chatHistory, setChatHistory] = useState([]);
 
   const recognitionRef = useRef(null);
@@ -40,7 +39,7 @@ const Simulation = () => {
   const videoRefHenry = useRef(null);
   const navigate = useNavigate();
 
-  const { currentUser } = useAuth(); // ✅ using new auth context
+  const { currentUser } = useAuth();
 
   const investorVideoRefs = {
     "Shreya Malhotra": videoRefShreya,
@@ -85,6 +84,7 @@ const Simulation = () => {
       );
       return;
     }
+    
     if (activeSpeaker && isInvestorSpeaking) {
       for (const [name, ref] of Object.entries(investorVideoRefs)) {
         if (ref.current) {
@@ -162,15 +162,9 @@ const Simulation = () => {
 
         if (aiResponse && aiResponse[1]?.[1]?.content) {
           const fullResponseText = aiResponse[1][1].content;
-          const parts = fullResponseText.split(/:(.*)/s);
-
-          let speakerName = "Ananya Mehra";
-          let messageText = fullResponseText;
-
-          if (parts.length > 1) {
-            speakerName = parts[0].trim();
-            messageText = parts[1].trim();
-          }
+          // Use the current_investor from the response instead of parsing text
+          const speakerName = aiResponse[2].current_investor || "Ananya Mehra";
+          const messageText = fullResponseText;
 
           setChatHistory((prev) => [
             ...prev,
@@ -319,6 +313,7 @@ const Simulation = () => {
               confidence_score: analysisData[0].confidence_score,
               investor_alignment: analysisData[0].investor_alignment,
               createdAt: new Date().toISOString(),
+              chats: chatHistory,
             },
           }),
         }

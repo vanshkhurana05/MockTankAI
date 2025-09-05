@@ -15,6 +15,7 @@ import { useEffect } from 'react'
 import DeepAnalysis from './components/DeepAnalysis/DeepAnalysis'
 import Recents from './components/Recents/Recents'
 import {AuthProvider} from './context/AuthContext'
+import SessionDetails from "./components/SessionDetails/SessionDetails"
 
 function App() {
   useEffect(() => {
@@ -41,6 +42,7 @@ function App() {
       <Route path='/simulation' element={<Simulation/>}/>
       <Route path='/feedback' element={<FeedbackForm/>}/>
       <Route path='/recents' element={<Recents/>}/>
+      <Route path="/recents/:sessionId" element={<SessionDetails />} />
       <Route path='/deepanalysis' element={<DeepAnalysis/>}/>
     </Routes>
   </Router>

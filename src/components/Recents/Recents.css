@@ -1,124 +1,86 @@
-.recent-container {
-  background: url(../../assets/bo3.png) no-repeat center center/cover;
-  color: white;
+.recents-page {
+  background-size: cover;
+  background-position: center;
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  padding: 0.15rem;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Content wrapper */
-.recent-content {
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.35); /* transparent layer */
-  border-radius: 16px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* Stat cards */
-.stat-card {
-  background: rgba(46, 48, 53, 0.4); /* transparent dark */
-  padding: 1.5rem;
-  border-radius: 16px;
-  text-align: center;
+.recents-wrapper {
   flex: 1;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px 40px; /* push below navbar */
+  color: white;
 }
 
-.stat-card h2 {
+.page-title {
   font-size: 2rem;
-  margin-top: 0.5rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 
-/* Table */
-.recent-table {
+.page-subtitle {
+  font-size: 1rem;
+  color: #aaa;
+  margin-bottom: 1.5rem;
+}
+
+.status-msg {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #ddd;
+}
+
+.status-msg.error {
+  color: #ff5555;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  border-collapse: collapse;
-  background: rgba(46, 48, 53, 0.4);
-  border-radius: 16px;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: 700px;
+  margin-top: 10px;
 }
 
-/* Bubble-style cards */
-.conversation-card {
-  padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.chat-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #1f1f2b;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: white;
+  transition: background 0.2s, transform 0.2s;
 }
 
-/* Status badge */
-.status-badge {
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
+.chat-item:hover {
+  background: #2a2a3a;
+  transform: translateY(-2px);
+}
+
+.chat-icon {
+  font-size: 1.5rem;
+}
+
+.chat-info h3 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.chat-info p {
   font-size: 0.9rem;
-  font-weight: bold;
-  color: black;
+  color: #bbb;
+  margin: 3px 0;
 }
 
-.completed {
-  background: rgba(22, 163, 74, 0.8);
+.timestamp {
+  font-size: 0.8rem;
+  color: #888;
 }
 
-.in-progress {
-  background: rgba(250, 204, 21, 0.8);
-}
-
-/* Buttons */
-.btn-container {
-  margin-top: 2rem;
-  display: flex;
-  gap: 1rem;
-}
-
-.btn {
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.start {
-  background: rgba(22, 163, 74, 0.8);
-  color: white;
-}
-
-.start:hover {
-  background: rgba(21, 128, 61, 0.9);
-}
-
-.review {
-  background: rgba(55, 65, 81, 0.6);
-  color: white;
-}
-
-.review:hover {
-  background: rgba(31, 41, 55, 0.8);
-}
-.stats-container {
-  display: flex;
-  justify-content: center;   /* center horizontally */
-  align-items: stretch;
-  gap: 2rem;                 /* space between the two cards */
-  margin-bottom: 2rem;
-  flex-wrap: wrap;           /* allows stacking on small screens */
-}
-
-.stat-card {
-  flex: 0 0 250px;           /* fixed width for consistency */
-  min-width: 220px;
-}
-.btn-container {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center; /* centers the buttons */
-  gap: 1.5rem;             /* spacing between buttons */
-}
 

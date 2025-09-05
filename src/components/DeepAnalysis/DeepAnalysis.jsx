@@ -1,6 +1,8 @@
 // DeepAnalysis.jsx
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import Navbar from "../Navbar/Navbar";
+import bgImage from "../../assets/bo2.png";
 import "./DeepAnalysis.css";
 
 const DeepAnalysis = () => {
@@ -27,7 +29,7 @@ const DeepAnalysis = () => {
         const data = await response.json();
         setSessions(data.sessions || []);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Failed to fetch sessions");
         console.error("Error fetching session data:", err);
       } finally {
         setLoading(false);
@@ -37,111 +39,130 @@ const DeepAnalysis = () => {
     fetchSessionData();
   }, [currentUser]);
 
-  // Get the latest session for visualization
-  const currentSession =
-    sessions.length > 0 ? sessions[sessions.length - 1] : null;
-
-  if (loading) {
-    return (
-      <div className="analysis-container">
-        <div className="loading-spinner"></div>
-        <p>Loading your session data...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="analysis-container">
-        <div className="error-message">
-          <h3>Error Loading Data</h3>
-          <p>{error}</p>
-          <button onClick={() => window.location.reload()}>Try Again</button>
-        </div>
-      </div>
-    );
-  }
-
-  if (!currentSession) {
-    return (
-      <div className="analysis-container">
-        <div className="no-data">
-          <h3>No Session Data Available</h3>
-          <p>Complete a chat session to see your analysis here.</p>
-        </div>
-      </div>
-    );
-  }
+  // latest session
+  const currentSession = sessions.length > 0 ? sessions[sessions.length - 1] : null;
 
   return (
-    <div className="analysis-container">
-      <header className="analysis-header">
-        <h1>Chat Session Analysis</h1>
-        <p>Detailed metrics from your latest conversation</p>
-      </header>
+    <div
+      className="analysis-page"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <Navbar />
 
-      <div className="tabs">
-        <button
-          className={activeTab === "overview" ? "active" : ""}
-          onClick={() => setActiveTab("overview")}
-        >
-          Overview
-        </button>
-        <button
-          className={activeTab === "detailed" ? "active" : ""}
-          onClick={() => setActiveTab("detailed")}
-        >
-          Detailed Metrics
-        </button>
-        <button
-          className={activeTab === "comparison" ? "active" : ""}
-          onClick={() => setActiveTab("comparison")}
-        >
-          Session History
-        </button>
-      </div>
+      <div className="analysis-wrapper">
+        {loading && (
+          <div className="analysis-container">
+            <div className="loading-spinner" />
+            <p style={{ textAlign: "center" }}>Loading your session data...</p>
+          </div>
+        )}
 
-      <div className="tab-content">
-        {activeTab === "overview" && <OverviewTab session={currentSession} />}
-        {activeTab === "detailed" && <DetailedTab session={currentSession} />}
-        {activeTab === "comparison" && <ComparisonTab sessions={sessions} />}
+        {error && (
+          <div className="analysis-container">
+            <div className="error-message">
+              <h3>Error Loading Data</h3>
+              <p>{error}</p>
+              <button onClick={() => window.location.reload()}>Try Again</button>
+            </div>
+          </div>
+        )}
+
+        {!loading && !error && !currentSession && (
+          <div className="analysis-container">
+            <div className="no-data">
+              <h3>No Session Data Available</h3>
+              <p>Complete a chat session to see your analysis here.</p>
+            </div>
+          </div>
+        )}
+
+        {!loading && !error && currentSession && (
+          <div className="analysis-container">
+            <header className="analysis-header">
+              <h1>Chat Session Analysis</h1>
+              <p>Detailed metrics from your latest conversation</p>
+            </header>
+
+            <div className="tabs">
+              <button
+                className={activeTab === "overview" ? "active" : ""}
+                onClick={() => setActiveTab("overview")}
+              >
+                Overview
+              </button>
+              <button
+                className={activeTab === "comparison" ? "active" : ""}
+                onClick={() => setActiveTab("comparison")}
+              >
+                Session History
+              </button>
+            </div>
+
+            <div className="tab-content">
+              {activeTab === "overview" && <OverviewTab session={currentSession} />}
+              {activeTab === "comparison" && <ComparisonTab sessions={sessions} />}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-// ---------------- Overview Tab ----------------
+/* ---------- Overview Tab (keeps your existing functional charts) ---------- */
 const OverviewTab = ({ session }) => {
+  // normalize values to numbers (safe fallback)
   const metrics = [
-    { name: "Words Per Minute", value: session.wpm || "0", max: 100, unit: "wpm" },
-    { name: "Response Length", value: session.res_length || "0", max: 20, unit: "words" },
-    { name: "Clarity Index", value: session.clarityIdx || "0", max: 100, unit: "%" },
-    { name: "Vocabulary Richness", value: session.vocabRichness || "0", max: 1, unit: "" },
-    { name: "Engagement Score", value: session.engagement_score || "0", max: 1, unit: "" },
-    { name: "Confidence Score", value: session.confidence_score || "0", max: 1, unit: "" },
+    { name: "Words Per Minute", value: Number(session.wpm) || 0, max: 100, unit: "wpm" },
+    { name: "Response Length", value: Number(session.res_length) || 0, max: 20, unit: "words" },
+    { name: "Clarity Index", value: Number(session.clarityIdx) || 0, max: 100, unit: "%" },
+    { name: "Vocabulary Richness", value: Number(session.vocabRichness) || 0, max: 1, unit: "" },
+    { name: "Engagement Score", value: Number(session.engagement_score) || 0, max: 1, unit: "" },
+    { name: "Confidence Score", value: Number(session.confidence_score) || 0, max: 1, unit: "" },
   ];
+
+  // a helper to compute percent width safely
+  const pct = (val, max) => {
+    if (!isFinite(val) || !isFinite(max) || max === 0) return 0;
+    return Math.max(0, Math.min(100, (val / max) * 100));
+  };
+
+  // Build clipPath polygon for radar using same math you used (keeps functionality)
+  const buildRadarClip = () => {
+    // angles spaced ~60deg (1.047 rad)
+    const vals = metrics.map((m, idx) => {
+      const angle = idx * 1.047; // radians
+      // scale each to 0..40 (radius factor)
+      const scale = (m.value / m.max) * 40;
+      const x = 50 + scale * Math.cos(angle);
+      const y = 50 - scale * Math.sin(angle);
+      return `${x}% ${y}%`;
+    });
+    return `polygon(${vals.join(",")})`;
+  };
+
+  const radarClip = buildRadarClip();
 
   return (
     <div className="overview-tab">
       <div className="metrics-grid">
-        {metrics.map((metric, index) => (
-          <div key={index} className="metric-card">
+        {metrics.map((metric, i) => (
+          <div key={i} className="metric-card">
             <h3>{metric.name}</h3>
-            <div className="metric-value">
-              {metric.value} {metric.unit}
-            </div>
+            <div className="metric-value">{metric.value} {metric.unit}</div>
+
             <div className="progress-bar">
               <div
                 className="progress-fill"
-                style={{
-                  width: `${(parseFloat(metric.value) / metric.max) * 100}%`,
-                }}
-              ></div>
+                style={{ width: `${pct(metric.value, metric.max)}%` }}
+              />
             </div>
-            <div className="metric-max">
-              Max: {metric.max}
-              {metric.unit}
-            </div>
+
+            <div className="metric-max">Max: {metric.max}{metric.unit}</div>
           </div>
         ))}
       </div>
@@ -152,13 +173,12 @@ const OverviewTab = ({ session }) => {
           <h3>Performance Radar</h3>
           <div className="radar-chart">
             <div className="radar-grid">
-              {[0, 1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="radar-circle"></div>
-              ))}
+              {[1,2,3,4,5].map((n) => <div key={n} className="radar-circle" />)}
+              <div className="radar-shape" style={{ clipPath: radarClip }} />
             </div>
 
             <div className="radar-labels">
-              {metrics.map((metric, i) => (
+              {metrics.map((m, i) => (
                 <div
                   key={i}
                   className="radar-label"
@@ -167,7 +187,7 @@ const OverviewTab = ({ session }) => {
                     top: `${50 - 45 * Math.sin(i * 1.047)}%`,
                   }}
                 >
-                  {metric.name}
+                  {m.name}
                 </div>
               ))}
             </div>
@@ -184,10 +204,8 @@ const OverviewTab = ({ session }) => {
                 <div className="bar-track">
                   <div
                     className="bar-fill"
-                    style={{
-                      width: `${(parseFloat(metric.value) / metric.max) * 100}%`,
-                    }}
-                  ></div>
+                    style={{ width: `${pct(metric.value, metric.max)}%` }}
+                  />
                 </div>
                 <div className="bar-value">
                   {metric.value}
@@ -202,56 +220,9 @@ const OverviewTab = ({ session }) => {
   );
 };
 
-// ---------------- Detailed Tab ----------------
-const DetailedTab = ({ session }) => {
-  return (
-    <div className="detailed-tab">
-      <div className="detailed-metrics">
-        <div className="detailed-card">
-          <h3>Conversation Metrics</h3>
-          <div className="metric-detail">
-            <span className="label">Words Per Minute:</span>
-            <span className="value">{session.wpm || "0"} wpm</span>
-          </div>
-          <div className="metric-detail">
-            <span className="label">Response Length:</span>
-            <span className="value">{session.res_length || "0"} words</span>
-          </div>
-          <div className="metric-detail">
-            <span className="label">Clarity Index:</span>
-            <span className="value">{session.clarityIdx || "0"}%</span>
-          </div>
-        </div>
-
-        <div className="detailed-card">
-          <h3>Language Quality</h3>
-          <div className="metric-detail">
-            <span className="label">Vocabulary Richness:</span>
-            <span className="value">{session.vocabRichness || "0"}</span>
-          </div>
-        </div>
-
-        <div className="detailed-card">
-          <h3>Engagement Metrics</h3>
-          <div className="metric-detail">
-            <span className="label">Engagement Score:</span>
-            <span className="value">{session.engagement_score || "0"}</span>
-          </div>
-          <div className="metric-detail">
-            <span className="label">Confidence Score:</span>
-            <span className="value">{session.confidence_score || "0"}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// ---------------- Comparison Tab ----------------
+/* ---------- Comparison Tab ---------- */
 const ComparisonTab = ({ sessions }) => {
-  const validSessions = sessions.filter(
-    (s) => s && (s.wpm !== undefined || s.res_length !== undefined)
-  );
+  const validSessions = sessions.filter(s => s && (s.wpm !== undefined || s.res_length !== undefined));
 
   return (
     <div className="comparison-tab">
@@ -262,9 +233,9 @@ const ComparisonTab = ({ sessions }) => {
       ) : (
         <>
           <div className="session-list">
-            {validSessions.map((session, index) => (
-              <div key={index} className="session-item">
-                <h4>Session {index + 1}</h4>
+            {validSessions.map((session, idx) => (
+              <div key={idx} className="session-item">
+                <h4>Session {idx + 1}</h4>
                 <div className="session-metrics">
                   <span>WPM: {session.wpm || "0"}</span>
                   <span>Clarity: {session.clarityIdx || "0"}%</span>
@@ -273,25 +244,6 @@ const ComparisonTab = ({ sessions }) => {
               </div>
             ))}
           </div>
-
-          <div className="comparison-chart">
-            <h4>Words Per Minute Trend</h4>
-            <div className="trend-chart">
-              {validSessions.map((session, i) => (
-                <div key={i} className="trend-bar-container">
-                  <div
-                    className="trend-bar"
-                    style={{
-                      height: `${(parseFloat(session.wpm || 0) / 100) * 100}%`,
-                    }}
-                  >
-                    <span className="trend-value">{session.wpm || "0"}</span>
-                  </div>
-                  <span className="session-label">Session {i + 1}</span>
-                </div>
-              ))}
-            </div>
-          </div>
         </>
       )}
     </div>
@@ -299,3 +251,6 @@ const ComparisonTab = ({ sessions }) => {
 };
 
 export default DeepAnalysis;
+
+
+

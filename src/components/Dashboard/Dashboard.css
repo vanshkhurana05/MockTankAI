@@ -114,3 +114,122 @@ background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Pricing Section */
+.pricing-section {
+  text-align: center;
+  margin: 4rem auto;
+  padding: 2rem;
+  color: #fff;
+}
+
+.pricing-heading {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #f3ec78;
+}
+
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Individual Card */
+.pricing-card {
+  background: rgba(25, 25, 25, 0.9);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 300px;
+  box-shadow: 0 0 15px rgba(243, 236, 120, 0.2);
+  transition: all 0.3s ease-in-out;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(243, 236, 120, 0.5);
+}
+
+.pricing-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-card .price {
+  font-size: 2rem;
+  margin: 1rem 0;
+  color: #f3ec78;
+  font-weight: bold;
+}
+
+.pricing-card-content {
+  flex-grow: 1; /* content expand karega */
+}
+
+.pricing-card-footer {
+  margin-top: auto; /* button bottom pe fix */
+  text-align: center;
+}
+
+/* Card List */
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.pricing-card ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.6rem 0;
+  font-size: 1rem;
+  color: #ddd;
+}
+
+.plan-icon {
+  color: #f3ec78;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+
+/* Buttons */
+.pricing-button {
+  background: #f3ec78;
+  color: #111;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+
+  min-width: 140px;
+  text-align: center;
+}
+
+.pricing-button:hover {
+  background: #fff176;
+  box-shadow: 0 0 15px rgba(243, 236, 120, 0.6);
+}
+
+/* Special highlights */
+.pricing-card.popular {
+  border: 2px solid #f3ec78;
+  box-shadow: 0 0 25px rgba(243, 236, 120, 0.4);
+}
+
+.pricing-card.elite {
+  border: 2px solid gold;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.pricing-card.free {
+  border: 2px solid #00e5ff;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.6); /* free wale me bhi glow */
+}
