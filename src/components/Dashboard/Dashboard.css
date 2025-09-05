@@ -118,97 +118,118 @@ background: -webkit-linear-gradient(45deg, #f3ec78, #af4261);
 /* Pricing Section */
 .pricing-section {
   text-align: center;
-  padding: 60px 20px;
-  background: transparent; /* keep same as body bg */
-  margin: 60px auto;
+  margin: 4rem auto;
+  padding: 2rem;
+  color: #fff;
 }
 
 .pricing-heading {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 40px;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
   color: #f3ec78;
 }
 
 .pricing-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
-  max-width: 1100px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-/* Base Card Styling with Glow */
+/* Individual Card */
 .pricing-card {
-  background: rgba(20, 20, 20, 0.6); /* semi-transparent to blend with bg */
-  color: #fff;
-  border-radius: 16px;
-  padding: 30px 20px;
-  border: 2px solid transparent;
-  box-shadow: 0 0 15px rgba(255, 152, 0, 0.2); /* subtle glow */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  backdrop-filter: blur(10px);
+  background: rgba(25, 25, 25, 0.9);
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 300px;
+  box-shadow: 0 0 15px rgba(243, 236, 120, 0.2);
+  transition: all 0.3s ease-in-out;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0 25px rgba(206, 132, 21, 0.6);
-  border: 2px solid #ff9800;
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(243, 236, 120, 0.5);
 }
 
 .pricing-card h3 {
   font-size: 1.5rem;
-  margin-bottom: 15px;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-card .price {
+  font-size: 2rem;
+  margin: 1rem 0;
   color: #f3ec78;
-}
-
-.price {
-  font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 20px;
-  color: #ff9800;
 }
 
+.pricing-card-content {
+  flex-grow: 1; /* content expand karega */
+}
+
+.pricing-card-footer {
+  margin-top: auto; /* button bottom pe fix */
+  text-align: center;
+}
+
+/* Card List */
 .pricing-card ul {
   list-style: none;
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 1.5rem 0;
 }
 
 .pricing-card ul li {
-  margin: 10px 0;
-  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.6rem 0;
+  font-size: 1rem;
+  color: #ddd;
 }
 
+.plan-icon {
+  color: #f3ec78;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+
+/* Buttons */
 .pricing-button {
-  background: #ff9800;
-  color: #000;
+  background: #f3ec78;
+  color: #111;
   border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.6rem;
   cursor: pointer;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  font-weight: bold;
+  transition: all 0.3s ease;
+
+  min-width: 140px;
+  text-align: center;
 }
 
 .pricing-button:hover {
-  background: #ffa733;
-  box-shadow: 0 0 12px #ff9800;
+  background: #fff176;
+  box-shadow: 0 0 15px rgba(243, 236, 120, 0.6);
 }
 
-/* Glow Colors for Different Plans */
+/* Special highlights */
 .pricing-card.popular {
-  border: 2px solid #ff9800;
-  box-shadow: 0 0 20px rgba(255, 152, 0, 0.7);
+  border: 2px solid #f3ec78;
+  box-shadow: 0 0 25px rgba(243, 236, 120, 0.4);
 }
 
 .pricing-card.elite {
-  border: 2px solid #f3ec78;
-  box-shadow: 0 0 20px rgba(243, 236, 120, 0.7);
+  border: 2px solid gold;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
 }
 
 .pricing-card.free {
-  border: 2px solid #bbb208;
-  box-shadow: 0 0 20px rgba(243, 236, 120, 0.7);
+  border: 2px solid #00e5ff;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.6); /* free wale me bhi glow */
 }

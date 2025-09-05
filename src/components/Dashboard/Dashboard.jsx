@@ -9,6 +9,15 @@ import bgdash from "../../assets/blackorange.png"; // Use your preferred image
 import "../../ui_components/heading/heading.css";
 import "../../ui_components/heading/heading.jsx";
 import TextType from "../../ui_components/heading/heading.jsx";
+import {
+  Sun,
+  Rocket,
+  Crown,
+  CheckSquare,
+  Users,
+  FileText,
+  UserCheck,
+} from "lucide-react";
 import { useEffect } from "react";
 
 const Dashboard = () => {
@@ -102,44 +111,86 @@ const Dashboard = () => {
           <section className="pricing-section">
             <h2 className="pricing-heading">Pricing Plans</h2>
             <div className="pricing-cards">
+              {/* Free */}
               <div className="pricing-card free">
-                <h3>Free</h3>
-                <p className="price">₹0</p>
-                <ul>
-                  <li>10 min session</li>
-                  <li>1 investor</li>
-                  <li>No insights or body language analysis</li>
-                </ul>
-                <Link to="/signin">
-                  <button className="pricing-button">Start Free</button>
-                </Link>
+                <div className="pricing-card-content">
+                  <h3>Free</h3>
+                  <p className="price">₹0</p>
+                  <ul>
+                    <li>
+                      <Sun size={18} className="plan-icon" /> 10 min session
+                    </li>
+                    <li>
+                      <Users size={18} className="plan-icon" /> 1 investor
+                    </li>
+                    <li>
+                      <FileText size={18} className="plan-icon" /> No insights
+                      or body language analysis
+                    </li>
+                  </ul>
+                </div>
+                <div className="pricing-card-footer">
+                  <Link to="/signin">
+                    <button className="pricing-button">Start Free</button>
+                  </Link>
+                </div>
               </div>
 
+              {/* Pro */}
               <div className="pricing-card popular">
-                <h3>Pro</h3>
-                <p className="price">₹799/month</p>
-                <ul>
-                  <li>40 sessions/month</li>
-                  <li>3 investors</li>
-                  <li>Premium insights & speech analysis</li>
-                </ul>
-                <Link to="/signin">
-                  <button className="pricing-button">Go Pro</button>
-                </Link>
+                <div className="pricing-card-content">
+                  <h3>Pro</h3>
+                  <p className="price">₹799/month</p>
+                  <ul>
+                    <li>
+                      <Rocket size={18} className="plan-icon" /> 40
+                      sessions/month
+                    </li>
+                    <li>
+                      <Users size={18} className="plan-icon" /> 3 investors
+                    </li>
+                    <li>
+                      <FileText size={18} className="plan-icon" /> Premium
+                      insights & speech analysis
+                    </li>
+                  </ul>
+                </div>
+                <div className="pricing-card-footer">
+                  <Link to="/signin">
+                    <button className="pricing-button">Go Pro</button>
+                  </Link>
+                </div>
               </div>
 
+              {/* Elite */}
               <div className="pricing-card elite">
-                <h3>Elite</h3>
-                <p className="price">₹2499/month</p>
-                <ul>
-                  <li>Unlimited sessions</li>
-                  <li>Access to 6 investors</li>
-                  <li>Body language & premium insights</li>
-                  <li>Early access to new models</li>
-                </ul>
-                <Link to="/signin">
-                  <button className="pricing-button">Join Elite</button>
-                </Link>
+                <div className="pricing-card-content">
+                  <h3>Elite</h3>
+                  <p className="price">₹2499/month</p>
+                  <ul>
+                    <li>
+                      <Crown size={18} className="plan-icon" /> Unlimited
+                      sessions
+                    </li>
+                    <li>
+                      <Users size={18} className="plan-icon" /> Access to 6
+                      investors
+                    </li>
+                    <li>
+                      <FileText size={18} className="plan-icon" /> Body language
+                      & premium insights
+                    </li>
+                    <li>
+                      <UserCheck size={18} className="plan-icon" /> Early access
+                      to new models
+                    </li>
+                  </ul>
+                </div>
+                <div className="pricing-card-footer">
+                  <Link to="/signin">
+                    <button className="pricing-button">Join Elite</button>
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
