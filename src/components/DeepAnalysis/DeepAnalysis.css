@@ -1,9 +1,9 @@
 /* ---- page wrapper with background ---- */
 .analysis-page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: block; /* Change from flex to block to allow natural scrolling */
   background-color: #0b0b0b; /* fallback if image fails */
+  overflow-y: auto; /* Ensure the page can scroll vertically */
 }
 
 /* wrapper to push content below navbar and center container */
@@ -125,4 +125,3 @@
   .metrics-grid { grid-template-columns: 1fr; }
   .trend-chart { height:160px; }
 }
-

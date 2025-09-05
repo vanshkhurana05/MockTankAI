@@ -168,6 +168,7 @@ const OverviewTab = ({ session }) => {
       </div>
 
       <div className="charts-row">
+        {/* Radar Chart */}
         <div className="chart-container">
           <h3>Performance Radar</h3>
           <div className="radar-chart">
@@ -193,6 +194,7 @@ const OverviewTab = ({ session }) => {
           </div>
         </div>
 
+        {/* Bar Chart */}
         <div className="chart-container">
           <h3>Score Distribution</h3>
           <div className="bar-chart">
@@ -205,7 +207,10 @@ const OverviewTab = ({ session }) => {
                     style={{ width: `${pct(metric.value, metric.max)}%` }}
                   />
                 </div>
-                <div className="bar-value">{metric.value}{metric.unit}</div>
+                <div className="bar-value">
+                  {metric.value}
+                  {metric.unit}
+                </div>
               </div>
             ))}
           </div>
@@ -232,9 +237,9 @@ const ComparisonTab = ({ sessions }) => {
               <div key={idx} className="session-item">
                 <h4>Session {idx + 1}</h4>
                 <div className="session-metrics">
-                  <span>WPM: {session.wpm || '0'}</span>
-                  <span>Clarity: {session.clarityIdx || '0'}%</span>
-                  <span>Vocab: {session.vocabRichness || '0'}</span>
+                  <span>WPM: {session.wpm || "0"}</span>
+                  <span>Clarity: {session.clarityIdx || "0"}%</span>
+                  <span>Vocab: {session.vocabRichness || "0"}</span>
                 </div>
               </div>
             ))}
